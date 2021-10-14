@@ -16,8 +16,6 @@ class MainFrame : public wxFrame {
 private:
     /// View class for our Demo
     UMLWarsView *mUMLWarsView;
-
-    void OnClose(wxCloseEvent &event);
     void OnAbout(wxCommandEvent &);
     void OnExit(wxCommandEvent &event);
 

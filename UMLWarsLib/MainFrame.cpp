@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "MainFrame.h"
 #include "UMLWarsView.h"
+#include "ids.h"
 
 /**
  * Initialize the MainFrame window.
@@ -31,25 +32,27 @@ void MainFrame::Initialize()
     // Layout (place) the child windows.
     Layout();
 
-    CreateStatusBar();
 
     auto menuBar = new wxMenuBar( );
 
+    CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
+
     auto fileMenu = new wxMenu();
-    auto viewMenu = new wxMenu();
+    auto variantMenu = new wxMenu();
     auto helpMenu = new wxMenu();
 
-    fileMenu->Append(wxID_EXIT, "&Exit\tAlt-X", "Quit this program");
-    helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
+    menuBar->Append(fileMenu, L"&File" );
+    menuBar->Append(variantMenu, L"&Variant");
+    menuBar->Append(helpMenu, L"&Help");
+    variantMenu->Append(IDM_STANDARD, L"&Standard", L"Standard", wxITEM_CHECK);
+    variantMenu->Append(IDM_CUSTOM, L"&Custom", L"Custom", wxITEM_CHECK);
+
+    SetMenuBar( menuBar );
+
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
 
-    menuBar->Append(fileMenu, L"&File" );
-    menuBar->Append(viewMenu, L"&View");
-    menuBar->Append(helpMenu, L"&Help");
-    SetMenuBar( menuBar );
 }
 
 /**
@@ -66,17 +69,8 @@ void MainFrame::OnExit(wxCommandEvent& event)
  */
 void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
-    wxMessageBox(L"Welcome to wxGraphicsContext Demo!",
-                 L"About wxGraphicsContext Demo",
+    wxMessageBox(L"Welcome to UML Wars",
+                 L"About UMlWars",
                  wxOK,
                  this);
-}
-
-/**
- * Handle a close event. Stop the animation and destroy this window.
- * @param event The Close event
- */
-void MainFrame::OnClose(wxCloseEvent& event)
-{
-    Destroy();
 }
