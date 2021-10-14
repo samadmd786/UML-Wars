@@ -9,8 +9,6 @@
 #define UMLWARS_UMLWARSVIEW_H
 #include "UMLWars.h"
 
-#include "UMLWars.h"
-
 /**
  * View class for our UMLWARS
  */

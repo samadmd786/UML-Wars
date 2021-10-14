@@ -8,6 +8,12 @@
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 
+/**
+ * Constructor
+ */
+UMLWarsView::UMLWarsView() {
+
+}
 
 /**
  * Initialize the uml wars view class.

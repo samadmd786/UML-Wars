@@ -39,7 +39,7 @@ void MainFrame::Initialize()
     auto viewMenu = new wxMenu();
     auto helpMenu = new wxMenu();
 
-    fileMenu->Append(wxID_EXIT, "E&xit\tAlt-X", "Quit this program");
+    fileMenu->Append(wxID_EXIT, "&Exit\tAlt-X", "Quit this program");
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
@@ -78,6 +78,5 @@ void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
  */
 void MainFrame::OnClose(wxCloseEvent& event)
 {
-    mUMLWarsView->Stop();
     Destroy();
 }
