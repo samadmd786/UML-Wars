@@ -1,16 +1,16 @@
 /**
- * @file UMLWars.cpp
+ * @file UMLWarsApp.cpp
  * @author hemke
  */
 #include "pch.h"
-#include "UMLWars.h"
+#include "UMLWarsApp.h"
 #include <MainFrame.h>
 
 /**
  * Initialize the application.
  * @return
  */
-bool UMLWars::OnInit()
+bool UMLWarsApp::OnInit()
 {
     if (!wxApp::OnInit())
         return false;

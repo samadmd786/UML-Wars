@@ -1,5 +1,5 @@
 /**
- * @file UMLWars.h
+ * @file UMLWarsApp.h
  * @author hemkesh
  *
  */
@@ -10,7 +10,7 @@
 /**
  * Main application class
  */
-class UMLWars : public wxApp {
+class UMLWarsApp : public wxApp {
 private:
 
 public:

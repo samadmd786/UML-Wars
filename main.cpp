@@ -3,6 +3,6 @@
  * @author hemkesh
  */
 #include "pch.h"
-#include "UMLWars.h"
+#include "UMLWarsApp.h"
 
-wxIMPLEMENT_APP(UMLWars);
+wxIMPLEMENT_APP(UMLWarsApp);

@@ -17,7 +17,7 @@ add_subdirectory(${APPLICATION_LIBRARY})
 include_directories(${APPLICATION_LIBRARY})
 
 # Define a variable containing a list of source files for the project
-set(SOURCE_FILES main.cpp UMLWars.cpp UMLWars.h pch.h)
+set(SOURCE_FILES main.cpp UMLWarsApp.cpp UMLWarsApp.h pch.h)
 
 add_executable(UMLWars WIN32 MACOSX_BUNDLE ${SOURCE_FILES})
 
