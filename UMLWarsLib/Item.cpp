@@ -46,8 +46,10 @@ using namespace std;
  */
 void Item::Draw(wxGraphicsContext* graphics)
 {
+    double itemWidth = mItemImage->GetWidth();
+    double itemHeight = mItemImage->GetHeight();
     mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
-    graphics->DrawBitmap(mItemBitmap, 100, 100, 20, 20);
+    graphics->DrawBitmap(mItemBitmap, GetX() - itemWidth/2, GetY() - itemHeight/2, itemWidth, itemHeight);
 }
 
 /**

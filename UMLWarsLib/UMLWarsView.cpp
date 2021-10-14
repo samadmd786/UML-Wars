@@ -17,7 +17,7 @@ using namespace std;
  */
 UMLWarsView::UMLWarsView() {
     auto Harold = make_shared<ItemHarold>(&mUMLWars);
-    Harold->SetLocation(100, 100);
+    Harold->SetLocation(0, 900);
     mUMLWars.Add(Harold);
     Refresh();
 }
