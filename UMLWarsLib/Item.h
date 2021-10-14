@@ -24,7 +24,7 @@ private:
     std::unique_ptr<wxImage> mItemImage;
 
     /// The bitmap we can display for this item
-    std::unique_ptr<wxBitmap> mItemBitmap;
+    wxGraphicsBitmap mItemBitmap;
 
     // Item location in the aquarium
     double mX = 0;      ///< X location for the center of the item in virtual pixels
@@ -58,17 +58,17 @@ public:
     */
     UMLWars* GetUMLWars() { return mUMLWars; }
 
-    /**
-    * Getter for the item's bitmap width
-    * @return item bitmap width
-    */
-    int GetBitmapWidth() const { return mItemBitmap->GetWidth(); }
-
-    /**
-    * Getter for the item's bitmap height
-    * @return item bitmap height
-    */
-    int GetBitmapHeight() const { return mItemBitmap->GetHeight(); }
+//    /**
+//    * Getter for the item's bitmap width
+//    * @return item bitmap width
+//    */
+//    int GetBitmapWidth() const { return mItemBitmap->GetWidth(); }
+//
+//    /**
+//    * Getter for the item's bitmap height
+//    * @return item bitmap height
+//    */
+//    int GetBitmapHeight() const { return mItemBitmap->GetHeight(); }
 
     /**
      * Set the item location

@@ -6,6 +6,8 @@
 #include "pch.h"
 #include "UMLWars.h"
 #include "Item.h"
+#include "ItemHarold.h"
+#include <wx/dcbuffer.h>
 #include <algorithm>
 
 using namespace std;
@@ -16,6 +18,15 @@ const static int Width = 1250;
 /// Game area height in virtual pixels
 const static int Height = 1000;
 
+
+/**
+ * Add an item to the UML Wars game
+ * @param item - New item to add
+ */
+void UMLWars::Add(std::shared_ptr<Item> item)
+{
+    mItems.push_back(item);
+}
 
 /**
  * Draw the game area
@@ -64,4 +75,9 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     // INSERT YOUR DRAWING CODE HERE
 
     graphics->PopState();
+}
+
+UMLWars::UMLWars()
+{
+
 }

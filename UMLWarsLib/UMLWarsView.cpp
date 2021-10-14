@@ -5,14 +5,21 @@
 
 #include "pch.h"
 #include "UMLWarsView.h"
+#include "ItemHarold.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
+#include <memory>
+
+using namespace std;
 
 /**
  * Constructor
  */
 UMLWarsView::UMLWarsView() {
-
+    auto Harold = make_shared<ItemHarold>(&mUMLWars);
+    Harold->SetLocation(100, 100);
+    mUMLWars.Add(Harold);
+    Refresh();
 }
 
 /**

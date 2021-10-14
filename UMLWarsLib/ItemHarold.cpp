@@ -14,7 +14,7 @@ const wstring HaroldImageName = L"images/harold.png";
  * Constructor
  * @param umlwars Aquarium this fish is a member of
  */
-ItemHarold::ItemHarold(UMLWars *umlwars) : Item(umlwars, HaroldImageName)
+ItemHarold::ItemHarold(UMLWars *umlWars) : Item(umlWars, HaroldImageName)
 {
 
 }

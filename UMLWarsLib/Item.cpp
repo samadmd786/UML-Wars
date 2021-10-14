@@ -46,13 +46,8 @@ using namespace std;
  */
 void Item::Draw(wxGraphicsContext* graphics)
 {
-    double width = mItemBitmap->GetWidth();
-    double height = mItemBitmap->GetHeight();
-    graphics->DrawBitmap(*mItemBitmap,
-            mX,
-            mY,
-            width,
-            height);
+    mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
+    graphics->DrawBitmap(mItemBitmap, 100, 100, 20, 20);
 }
 
 /**
@@ -64,13 +59,12 @@ Item::~Item()
 
 /**
  * Constructor
- * @param umlwars - The UML Wars game this item is a member of
+ * @param umlWars - The UML Wars game this item is a member of
  * @param filename - The name of the file to display for this item
  */
 Item::Item(UMLWars* umlWars, const std::wstring &filename) : mUMLWars(umlWars)
 {
-    mItemImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
-    mItemBitmap = make_unique<wxBitmap>(*mItemImage);
+    mItemImage = make_unique<wxImage>(filename);
 }
 
 
