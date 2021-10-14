@@ -17,8 +17,8 @@ private:
     /// An object that describes our UML Wars game
     UMLWars mUMLWars;
 
-
     void OnPaint(wxPaintEvent& event);
+
 public:
     UMLWarsView();
 
