@@ -21,7 +21,7 @@ UMLWarsView::UMLWarsView() {
  */
 void UMLWarsView::Initialize(wxFrame* parent)
 {
-    Create(parent, wxID_ANY);
+    Create(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE);
     SetBackgroundStyle(wxBG_STYLE_PAINT);
     Bind(wxEVT_PAINT, &UMLWarsView::OnPaint, this);
 }

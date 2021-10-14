@@ -38,6 +38,7 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
         mYOffset = (float)((height - Height * mScale) / 2);
     }
 
+
     graphics->PushState();
 
     graphics->Translate(mXOffset, mYOffset);
