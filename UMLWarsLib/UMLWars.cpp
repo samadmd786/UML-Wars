@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "UMLWars.h"
-#include <wx/graphics.h>
+#include "Item.h"
 #include <algorithm>
 
 using namespace std;
@@ -32,7 +32,7 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     auto scaleY = double(height) / double(Height);
     mScale = min(scaleX, scaleY);
 
-    mXOffset = width / 2;
+    mXOffset = width / 2.;
     mYOffset = 0;
     if (height > Height * mScale) {
         mYOffset = (float)((height - Height * mScale) / 2);
@@ -50,7 +50,13 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     wxBrush rectBrush(*wxWHITE);
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxWHITE_PEN);
-    graphics->DrawRectangle(-Width/2, 0, Width, Height);
+    graphics->DrawRectangle(-Width/2., 0, Width, Height);
+
+    for(auto item : mItems)
+    {
+        item->Draw(graphics);
+    }
+
 
     //
     // Draw in virtual pixels on the graphics context
