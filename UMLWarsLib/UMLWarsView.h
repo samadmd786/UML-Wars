@@ -7,6 +7,7 @@
 
 #ifndef UMLWARS_UMLWARSVIEW_H
 #define UMLWARS_UMLWARSVIEW_H
+#include "UMLWars.h"
 
 #include "UMLWars.h"
 
@@ -20,9 +21,10 @@ private:
 
 
     void OnPaint(wxPaintEvent& event);
-
 public:
-    void Initialize(wxFrame *);
+    UMLWarsView();
+
+    void Initialize(wxFrame *parent);
 };
 
 #endif //UMLWARS_UMLWARSVIEW_H
