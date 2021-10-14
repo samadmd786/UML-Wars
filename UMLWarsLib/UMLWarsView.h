@@ -8,12 +8,19 @@
 #ifndef UMLWARS_UMLWARSVIEW_H
 #define UMLWARS_UMLWARSVIEW_H
 
+#include "UMLWars.h"
+
 /**
  * View class for our UMLWARS
  */
 class UMLWarsView : public wxWindow {
 private:
+    /// An object that describes our UML Wars game
+    UMLWars mUMLWars;
+
+
     void OnPaint(wxPaintEvent& event);
+
 public:
     void Initialize(wxFrame *);
 };
