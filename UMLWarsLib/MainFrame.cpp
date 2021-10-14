@@ -47,8 +47,8 @@ void MainFrame::Initialize()
     menuBar->Append(fileMenu, L"&File" );
     menuBar->Append(variantMenu, L"&Variant");
     menuBar->Append(helpMenu, L"&Help");
-    variantMenu->Append(IDM_STANDARD, L"&Standard", L"Standard", wxITEM_CHECK);
-    variantMenu->Append(IDM_CUSTOM, L"&Custom", L"Custom", wxITEM_CHECK);
+    variantMenu->AppendRadioItem(IDM_STANDARD, L"&Standard", L"Standard");
+    variantMenu->AppendRadioItem(IDM_CUSTOM, L"&Custom", L"Custom");
 
     SetMenuBar( menuBar );
 
