@@ -41,6 +41,9 @@ void MainFrame::Initialize()
     auto variantMenu = new wxMenu();
     auto helpMenu = new wxMenu();
 
+    fileMenu->Append(wxID_EXIT, "&Exit\tAlt-X", "Quit this program");
+    helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
+
     menuBar->Append(fileMenu, L"&File" );
     menuBar->Append(variantMenu, L"&Variant");
     menuBar->Append(helpMenu, L"&Help");
