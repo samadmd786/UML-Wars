@@ -52,10 +52,10 @@ void MainFrame::Initialize()
 
     SetMenuBar( menuBar );
 
-
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
-
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnVariantStandard, this, IDM_STANDARD);
+    Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnVariantCustom, this, IDM_CUSTOM);
 }
 
 /**
@@ -70,10 +70,26 @@ void MainFrame::OnExit(wxCommandEvent& event)
 /**
  * Application about box menu handler
  */
-void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
+void MainFrame::OnAbout(wxCommandEvent& event)
 {
     wxMessageBox(L"Welcome to UML Wars",
-                 L"About UMlWars",
-                 wxOK,
-                 this);
+            L"About UMlWars",
+            wxOK,
+            this);
+}
+
+/**
+ * Application about box menu handler
+ */
+void MainFrame::OnVariantStandard(wxCommandEvent& event)
+{
+    mStandard = true;
+}
+
+/**
+ * Application about box menu handler
+ */
+void MainFrame::OnVariantCustom(wxCommandEvent& event)
+{
+    mStandard = false;
 }

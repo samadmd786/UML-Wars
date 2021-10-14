@@ -19,8 +19,14 @@ private:
     void OnAbout(wxCommandEvent &);
     void OnExit(wxCommandEvent &event);
 
+    bool mStandard = true;
+
 public:
     void Initialize();
+
+    void OnVariantStandard(wxCommandEvent& event);
+
+    void OnVariantCustom(wxCommandEvent& event);
 };
 
 #endif //UMLWARS_MAINFRAME_H
