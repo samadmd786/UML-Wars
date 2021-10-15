@@ -4,17 +4,32 @@
  */
 
 #include "BoxClass.h"
+#include <memory>
+#include <random>
+#include "UMLWars.h"
 
 using namespace std;
+
 
 /**
  * Constructor
  * @param umlwars Aquarium this fish is a member of
  */
-BoxClass::BoxClass(UMLWars *umlWars, double x, double y) : Item(umlWars)
+BoxClass::BoxClass(UMLWars *umlWars) : Item(umlWars)
 {
-    SetX(x);
-    SetY(y);
+    std::uniform_real_distribution<> distribution(-500, 500);
+    double random = distribution(umlWars->GetRandom());
+    SetLocation(random, 0);
+
+    if(random >= 0){
+        mDirection = -1;
+    }
+
+    std::uniform_real_distribution<> xDistribution(0.1,0.5);
+    mXDir = xDistribution(umlWars->GetRandom());
+
+    std::uniform_real_distribution<> yDistribution(0.1,0.5);
+    mYDir = yDistribution(umlWars->GetRandom());
 }
 
 /**
@@ -35,6 +50,6 @@ void BoxClass::Draw(wxGraphicsContext* graphics)
 */
 void BoxClass::Update()
 {
-    SetX(GetX() + 5);
-    SetY(GetY() + 5);
+    SetX(GetX() + (mSpeed * mDirection * mXDir));
+    SetY(GetY() + (mSpeed * mYDir));
 }

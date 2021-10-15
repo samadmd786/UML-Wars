@@ -15,7 +15,9 @@
 using namespace std;
 
 /// Frame duration in milliseconds
-const int FrameDuration = 30;
+const int FrameDuration = 25;
+
+const int emission = 1;
 
 /**
  * Constructor
@@ -25,9 +27,6 @@ UMLWarsView::UMLWarsView()
     auto Harold = make_shared<ItemHarold>(&mUMLWars);
     Harold->SetLocation(0, 900);
     mUMLWars.Add(Harold);
-
-    auto Box = make_shared<BoxClass>(&mUMLWars, 50, 100);
-    mUMLWars.Add(Box);
 
     auto Pen = make_shared<ItemPen>(&mUMLWars);
     Pen->SetLocation(29, 846);
@@ -90,5 +89,13 @@ void UMLWarsView::OnMouseMove(wxMouseEvent& event)
  */
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
+    if (mStopWatch.Time() % 2000 >= 0 && mStopWatch.Time() % 2000 <= 30) {
+        auto Box = make_shared<BoxClass>(&mUMLWars);
+        Box->SetSpeed(mCurrentSpeed);
+        mUMLWars.Add(Box);
+    }
+    if (mStopWatch.Time() % 10000 >= 0 && mStopWatch.Time() % 10000 <= 30) {
+        mCurrentSpeed += 1;
+    }
     Refresh();
 }

@@ -8,6 +8,8 @@
 #ifndef UMLWARS_UMLWARS_H
 #define UMLWARS_UMLWARS_H
 
+#include <random>
+
 class Item;
 
 class UMLWars {
@@ -21,6 +23,9 @@ private:
     // mouse location information
     double mMouseX = 0; ///< x coordinate of the mouse in virtual pixels
     double mMouseY = 0; ///< y coordinate of the mouse in virtual pixels
+
+    /// Random number generator
+    std::mt19937 mRandom;
 
 
 public:
@@ -56,6 +61,12 @@ public:
 
     void Add(std::shared_ptr<Item> item);
     void OnDraw(wxGraphicsContext* graphics, int width, int height);
+
+    /**
+     * Get the random number generator
+     * @return Pointer to the random number generator
+     */
+    std::mt19937 &GetRandom() {return mRandom;}
 };
 
 #endif //UMLWARS_UMLWARS_H

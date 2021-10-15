@@ -26,6 +26,8 @@ private:
     /// Stopwatch used to measure elapsed time
     wxStopWatch mStopWatch;
 
+    double mCurrentSpeed = 1;
+
 public:
     UMLWarsView();
     void Initialize(wxFrame *parent);
