@@ -48,8 +48,16 @@ void Item::Draw(wxGraphicsContext* graphics)
 {
     double itemWidth = mItemImage->GetWidth();
     double itemHeight = mItemImage->GetHeight();
-    mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
-    graphics->DrawBitmap(mItemBitmap, GetX() - itemWidth/2, GetY() - itemHeight/2, itemWidth, itemHeight);
+    if (mItemBitmap.IsNull())
+    {
+        mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
+    }
+    graphics->PushState();  // Save the graphics state
+    graphics->Translate(GetX(), GetY());
+    graphics->Rotate(mRotation);
+    graphics->DrawBitmap(mItemBitmap, -itemWidth/2, -itemHeight/2, itemWidth, itemHeight);
+    graphics->PopState();   // Restore the graphics state
+    //graphics->DrawBitmap(mItemBitmap, GetX() - itemWidth/2, GetY() - itemHeight/2, itemWidth, itemHeight);
 }
 
 /**

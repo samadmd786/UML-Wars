@@ -11,6 +11,7 @@
 #include "Item.h"
 
 class ItemHarold : public Item{
+
 public:
     /// Default constructor (disabled)
     ItemHarold() = delete;
@@ -21,7 +22,9 @@ public:
     /// Assignment operator
     void operator=(const ItemHarold &) = delete;
 
-    ItemHarold(UMLWars* umlwars);
+    ItemHarold(UMLWars* umlWars);
+
+    virtual void Update() override;
 
 };
 

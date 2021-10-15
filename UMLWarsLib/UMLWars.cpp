@@ -65,6 +65,7 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
 
     for(auto item : mItems)
     {
+        item->Update();
         item->Draw(graphics);
     }
 

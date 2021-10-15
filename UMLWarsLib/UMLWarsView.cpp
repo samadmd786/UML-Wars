@@ -31,6 +31,7 @@ void UMLWarsView::Initialize(wxFrame* parent)
     Create(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE);
     SetBackgroundStyle(wxBG_STYLE_PAINT);
     Bind(wxEVT_PAINT, &UMLWarsView::OnPaint, this);
+    Bind(wxEVT_MOTION, &UMLWarsView::OnMouseMove, this);
 }
 
 
@@ -55,4 +56,14 @@ void UMLWarsView::OnPaint(wxPaintEvent& event)
     // Tell the game class to draw
     wxRect rect = GetRect();
     mUMLWars.OnDraw(gc.get(), rect.GetWidth(), rect.GetHeight());
+}
+
+/**
+ * Handler for a mouse movement event
+ */
+void UMLWarsView::OnMouseMove(wxMouseEvent& event)
+{
+    mUMLWars.SetMouseX(event.GetX());
+    mUMLWars.SetMouseY(event.GetY());
+    Refresh();
 }

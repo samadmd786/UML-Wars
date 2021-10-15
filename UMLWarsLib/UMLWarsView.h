@@ -18,10 +18,10 @@ private:
     UMLWars mUMLWars;
 
     void OnPaint(wxPaintEvent& event);
+    void OnMouseMove(wxMouseEvent &event);
 
 public:
     UMLWarsView();
-
     void Initialize(wxFrame *parent);
 };
 
