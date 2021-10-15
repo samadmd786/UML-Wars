@@ -20,7 +20,8 @@ const int FrameDuration = 30;
 /**
  * Constructor
  */
-UMLWarsView::UMLWarsView() {
+UMLWarsView::UMLWarsView()
+{
     auto Harold = make_shared<ItemHarold>(&mUMLWars);
     Harold->SetLocation(0, 900);
     mUMLWars.Add(Harold);
@@ -51,7 +52,6 @@ void UMLWarsView::Initialize(wxFrame* parent)
     mStopWatch.Start();
 }
 
-
 /**
  * Paint event, draws the window.
  * @param event Paint event object
@@ -73,7 +73,6 @@ void UMLWarsView::OnPaint(wxPaintEvent& event)
     // Tell the game class to draw
     wxRect rect = GetRect();
     mUMLWars.OnDraw(gc.get(), rect.GetWidth(), rect.GetHeight());
-    dc.DrawText(L"Missed",100,100);
 }
 
 /**
