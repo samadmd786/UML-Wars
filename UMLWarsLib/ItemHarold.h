@@ -2,7 +2,7 @@
  * @file ItemHarold.h
  * @author hemke
  *
- *
+ * Class for ItemHarold in UML Wars game
  */
 
 #ifndef UMLWARS_ITEMHAROLD_H
@@ -24,6 +24,7 @@ public:
 
     ItemHarold(UMLWars* umlWars);
 
+    virtual void Draw(wxGraphicsContext* graphics) override;
     virtual void Update() override;
 
 };
