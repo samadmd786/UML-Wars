@@ -68,6 +68,7 @@ void UMLWarsView::OnPaint(wxPaintEvent& event)
     // Tell the game class to draw
     wxRect rect = GetRect();
     mUMLWars.OnDraw(gc.get(), rect.GetWidth(), rect.GetHeight());
+    dc.DrawText(L"Missed",100,100);
 }
 
 /**

@@ -13,29 +13,28 @@
  */
 void MainFrame::Initialize()
 {
-    Create(nullptr, wxID_ANY, L"UML Wars", wxDefaultPosition,  wxSize( 1000,800 ));
+    Create(nullptr, wxID_ANY, L"UML Wars", wxDefaultPosition, wxSize(1000, 800));
 
     // Create a sizer that will lay out child windows vertically
     // one above each other
-    auto sizer = new wxBoxSizer( wxHORIZONTAL );
+    auto sizer = new wxBoxSizer(wxHORIZONTAL);
 
     // Create the view class object as a child of MainFrame
     auto mainView = new UMLWarsView();
     mainView->Initialize(this);
 
     // Add it to the sizer
-    sizer->Add(mainView,1, wxEXPAND | wxALL );
+    sizer->Add(mainView, 1, wxEXPAND | wxALL);
 
     // Set the sizer for this frame
-    SetSizer( sizer );
+    SetSizer(sizer);
 
     // Layout (place) the child windows.
     Layout();
 
+    auto menuBar = new wxMenuBar();
 
-    auto menuBar = new wxMenuBar( );
-
-    CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
+    CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
 
     auto fileMenu = new wxMenu();
     auto variantMenu = new wxMenu();
@@ -44,13 +43,13 @@ void MainFrame::Initialize()
     fileMenu->Append(wxID_EXIT, "&Exit\tAlt-X", "Quit this program");
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
 
-    menuBar->Append(fileMenu, L"&File" );
+    menuBar->Append(fileMenu, L"&File");
     menuBar->Append(variantMenu, L"&Variant");
     menuBar->Append(helpMenu, L"&Help");
     variantMenu->AppendRadioItem(IDM_STANDARD, L"&Standard", L"Standard");
     variantMenu->AppendRadioItem(IDM_CUSTOM, L"&Custom", L"Custom");
 
-    SetMenuBar( menuBar );
+    SetMenuBar(menuBar);
 
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
