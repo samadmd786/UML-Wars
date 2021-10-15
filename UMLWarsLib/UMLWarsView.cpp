@@ -7,6 +7,7 @@
 #include "UMLWarsView.h"
 #include "ItemHarold.h"
 #include "BoxClass.h"
+#include "ItemPen.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <memory>
@@ -26,6 +27,10 @@ UMLWarsView::UMLWarsView() {
 
     auto Box = make_shared<BoxClass>(&mUMLWars, 50, 100);
     mUMLWars.Add(Box);
+
+    auto Pen = make_shared<ItemPen>(&mUMLWars);
+    Pen->SetLocation(29, 846);
+    mUMLWars.Add(Pen);
 }
 
 /**

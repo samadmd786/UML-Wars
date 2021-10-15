@@ -22,8 +22,23 @@ private:
     wxGraphicsBitmap mItemBitmap;
 
 public:
+    /**
+     * Getter for graphics item's image width
+     * @return image width
+     */
+    double GetImageWidth() {return mItemImage->GetWidth(); }
+    /**
+     * Getter for graphics item image's height
+     * @return image height
+     */
+    double GetImageHeight() {return mItemImage->GetHeight(); }
+    /**
+     * Getter for graphics item's bitmap
+     * @return bitmap
+     */
+    wxGraphicsBitmap GetBitmap() {return mItemBitmap; }
 
-    void Draw(wxGraphicsContext* graphics);
+    virtual void Draw(wxGraphicsContext* graphics);
 };
 
 #endif //UMLWARS_GRAPHICSITEM_H
