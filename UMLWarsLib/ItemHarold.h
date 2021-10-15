@@ -8,9 +8,9 @@
 #ifndef UMLWARS_ITEMHAROLD_H
 #define UMLWARS_ITEMHAROLD_H
 
-#include "Item.h"
+#include "GraphicsItem.h"
 
-class ItemHarold : public Item{
+class ItemHarold : public GraphicsItem{
 
 public:
     /// Default constructor (disabled)

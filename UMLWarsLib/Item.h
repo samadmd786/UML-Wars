@@ -20,12 +20,6 @@ private:
     /// The UML War game this item is contained in
     UMLWars *mUMLWars;
 
-    /// The underlying item image
-    std::unique_ptr<wxImage> mItemImage;
-
-    /// Bitmap for the item in question
-    wxGraphicsBitmap mItemBitmap;
-
     // Item location in the UMLWars window
     double mX = 0;      ///< X location for the center of the item in virtual pixels
     double mY = 0;      ///< Y location for the center of the item in virtual pixels
@@ -104,7 +98,7 @@ public:
     virtual ~Item();
 
 protected:
-    Item(UMLWars* umlWars, const std::wstring &filename);
+    Item(UMLWars* umlWars);
 
 };
 

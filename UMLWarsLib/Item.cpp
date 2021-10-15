@@ -46,18 +46,18 @@ using namespace std;
  */
 void Item::Draw(wxGraphicsContext* graphics)
 {
-    double itemWidth = mItemImage->GetWidth();
-    double itemHeight = mItemImage->GetHeight();
-    if (mItemBitmap.IsNull())
-    {
-        mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
-    }
-    graphics->PushState();  // Save the graphics state
-    graphics->Translate(GetX(), GetY());
-    graphics->Rotate(mRotation);
-    graphics->DrawBitmap(mItemBitmap, -itemWidth/2, -itemHeight/2, itemWidth, itemHeight);
-    graphics->PopState();   // Restore the graphics state
-    //graphics->DrawBitmap(mItemBitmap, GetX() - itemWidth/2, GetY() - itemHeight/2, itemWidth, itemHeight);
+//    double itemWidth = mItemImage->GetWidth();
+//    double itemHeight = mItemImage->GetHeight();
+//    if (mItemBitmap.IsNull())
+//    {
+//        mItemBitmap = graphics->CreateBitmapFromImage(*mItemImage);
+//    }
+//    graphics->PushState();  // Save the graphics state
+//    graphics->Translate(GetX(), GetY());
+//    graphics->Rotate(mRotation);
+//    graphics->DrawBitmap(mItemBitmap, -itemWidth/2, -itemHeight/2, itemWidth, itemHeight);
+//    graphics->PopState();   // Restore the graphics state
+//    //graphics->DrawBitmap(mItemBitmap, GetX() - itemWidth/2, GetY() - itemHeight/2, itemWidth, itemHeight);
 }
 
 /**
@@ -70,11 +70,9 @@ Item::~Item()
 /**
  * Constructor
  * @param umlWars - The UML Wars game this item is a member of
- * @param filename - The name of the file to display for this item
  */
-Item::Item(UMLWars* umlWars, const std::wstring &filename) : mUMLWars(umlWars)
+Item::Item(UMLWars* umlWars) : mUMLWars(umlWars)
 {
-    mItemImage = make_unique<wxImage>(filename);
 }
 
 

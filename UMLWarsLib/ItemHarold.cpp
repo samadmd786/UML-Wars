@@ -20,7 +20,7 @@ const double pi = 3.1415;
  * Constructor
  * @param umlwars Aquarium this fish is a member of
  */
-ItemHarold::ItemHarold(UMLWars *umlWars) : Item(umlWars, HaroldImageName)
+ItemHarold::ItemHarold(UMLWars *umlWars) : GraphicsItem(umlWars, HaroldImageName)
 {
 
 }
