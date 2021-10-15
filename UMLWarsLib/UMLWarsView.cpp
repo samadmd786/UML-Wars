@@ -6,11 +6,15 @@
 #include "pch.h"
 #include "UMLWarsView.h"
 #include "ItemHarold.h"
+#include "BoxClass.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <memory>
 
 using namespace std;
+
+/// Frame duration in milliseconds
+const int FrameDuration = 30;
 
 /**
  * Constructor
@@ -19,7 +23,9 @@ UMLWarsView::UMLWarsView() {
     auto Harold = make_shared<ItemHarold>(&mUMLWars);
     Harold->SetLocation(0, 900);
     mUMLWars.Add(Harold);
-    Refresh();
+
+    auto Box = make_shared<BoxClass>(&mUMLWars, 50, 100);
+    mUMLWars.Add(Box);
 }
 
 /**
@@ -32,6 +38,12 @@ void UMLWarsView::Initialize(wxFrame* parent)
     SetBackgroundStyle(wxBG_STYLE_PAINT);
     Bind(wxEVT_PAINT, &UMLWarsView::OnPaint, this);
     Bind(wxEVT_MOTION, &UMLWarsView::OnMouseMove, this);
+
+    Bind(wxEVT_TIMER, &UMLWarsView::OnTimer, this);
+
+    mTimer.SetOwner(this);
+    mTimer.Start(FrameDuration);
+    mStopWatch.Start();
 }
 
 
@@ -65,5 +77,13 @@ void UMLWarsView::OnMouseMove(wxMouseEvent& event)
 {
     mUMLWars.SetMouseX(event.GetX());
     mUMLWars.SetMouseY(event.GetY());
+}
+
+/**
+ * Handle timer events
+ * @param event timer event
+ */
+void UMLWarsView::OnTimer(wxTimerEvent& event)
+{
     Refresh();
 }
