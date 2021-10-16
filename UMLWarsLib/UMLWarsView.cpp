@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "UMLWarsView.h"
 #include "ItemHarold.h"
-#include "BoxClass.h"
+#include "ItemBox.h"
 #include "ItemPen.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
@@ -25,12 +25,16 @@ const int emission = 1;
 UMLWarsView::UMLWarsView()
 {
     auto Harold = make_shared<ItemHarold>(&mUMLWars);
-    Harold->SetLocation(0, 900);
+    Harold->SetX(0);
+    Harold->SetY(900);
     mUMLWars.Add(Harold);
+    mUMLWars.SetHarold(Harold);
 
     auto Pen = make_shared<ItemPen>(&mUMLWars);
-    Pen->SetLocation(29, 846);
+    Pen->SetX(29);
+    Pen->SetY(846);
     mUMLWars.Add(Pen);
+    mUMLWars.SetPen(Pen);
 }
 
 /**
@@ -43,7 +47,7 @@ void UMLWarsView::Initialize(wxFrame* parent)
     SetBackgroundStyle(wxBG_STYLE_PAINT);
     Bind(wxEVT_PAINT, &UMLWarsView::OnPaint, this);
     Bind(wxEVT_MOTION, &UMLWarsView::OnMouseMove, this);
-
+    Bind(wxEVT_LEFT_DOWN, &UMLWarsView::OnLeftDown, this);
     Bind(wxEVT_TIMER, &UMLWarsView::OnTimer, this);
 
     mTimer.SetOwner(this);
@@ -69,6 +73,11 @@ void UMLWarsView::OnPaint(wxPaintEvent& event)
     std::shared_ptr<wxGraphicsContext> gc;
     gc = std::shared_ptr<wxGraphicsContext>(wxGraphicsContext::Create(dc));
 
+    auto newTime = mStopWatch.Time();
+    auto elapsed = (double)(newTime - mTime) * 0.001;
+    mTime = newTime;
+    mUMLWars.Update(elapsed);
+
     // Tell the game class to draw
     wxRect rect = GetRect();
     mUMLWars.OnDraw(gc.get(), rect.GetWidth(), rect.GetHeight());
@@ -84,13 +93,28 @@ void UMLWarsView::OnMouseMove(wxMouseEvent& event)
 }
 
 /**
+ * Handler for a mouse left-click event
+ */
+void UMLWarsView::OnLeftDown(wxMouseEvent& event)
+{
+    if (mUMLWars.LaunchPen())
+    {
+        // we need to start a timer to give harold another pen
+
+    }
+
+    // else there is no pen to launch, do nothing
+
+}
+
+/**
  * Handle timer events
  * @param event timer event
  */
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
     if (mStopWatch.Time() % 2000 >= 0 && mStopWatch.Time() % 2000 <= 30) {
-        auto Box = make_shared<BoxClass>(&mUMLWars);
+        auto Box = make_shared<ItemBox>(&mUMLWars);
         Box->SetSpeed(mCurrentSpeed);
         mUMLWars.Add(Box);
     }

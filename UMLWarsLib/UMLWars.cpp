@@ -9,6 +9,7 @@
 #include "ItemHarold.h"
 #include <wx/dcbuffer.h>
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
@@ -91,7 +92,6 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
 
     for(auto item : mItems)
     {
-        item->Update();
         item->Draw(graphics);
     }
 
@@ -102,6 +102,33 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     // INSERT YOUR DRAWING CODE HERE
 
     graphics->PopState();
+}
+
+/**
+ * Updates items in the game for animation purposes
+ * @param elapsed time since last update
+ */
+void UMLWars::Update(double elapsed)
+{
+    for(auto item : mItems)
+    {
+        item->Update(elapsed);
+    }
+}
+
+/**
+ * Launches the pen Harold is holding, if one exists.
+ * @return boolean indicator of whether a pen was launched
+ */
+bool UMLWars::LaunchPen()
+{
+    if (mPen)
+    {
+        mPen->Launch();
+        mPen = nullptr;
+        return true;
+    }
+    return false;
 }
 
 UMLWars::UMLWars()

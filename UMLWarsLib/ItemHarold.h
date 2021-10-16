@@ -24,8 +24,7 @@ public:
 
     ItemHarold(UMLWars* umlWars);
 
-    virtual void Draw(wxGraphicsContext* graphics) override;
-    virtual void Update() override;
+    virtual void Update(double elapsed) override;
 
 };
 

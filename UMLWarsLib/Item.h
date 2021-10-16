@@ -25,7 +25,10 @@ private:
     double mY = 0;      ///< Y location for the center of the item in virtual pixels
 
     /// Rotation angle for the item
-    double mRotation;
+    double mRotation = 0;
+
+    /// Speed for the item
+    double mSpeed = 0;
 
 public:
     /// Default constructor (disabled)
@@ -53,25 +56,37 @@ public:
      * Set the Y location of an item in pixels
      * @param newX the new x coordinate
      */
-     void SetX(double newX) { mX = newX; }
+    void SetX(double newX) { mX = newX; }
 
     /**
      * Set the Y location of an item in pixels
      * @param newY the new y coordinate
      */
-     void SetY(double newY) { mY = newY; }
+    void SetY(double newY) { mY = newY; }
 
     /**
      * Gets the current rotation
      * @return the rotation angle
      */
-     double GetRotation() { return mRotation; }
+    double GetRotation() { return mRotation; }
 
     /**
      * Set the rotation of an image
      * @param newRotation the new rotation
      */
-     void SetRotation(double newRotation) { mRotation = newRotation; }
+    void SetRotation(double newRotation) { mRotation = newRotation; }
+
+    /**
+     * Getter for the speed of the item
+     * @return Item speed
+     */
+    double GetSpeed() { return mSpeed; }
+
+    /**
+     * Sets the speed of the item
+     * @param speed the new speed
+     */
+    void SetSpeed(double speed) { mSpeed = speed; }
 
     /**
     * Get the pointer to the UML War game object
@@ -79,12 +94,6 @@ public:
     */
     UMLWars* GetUMLWars() { return mUMLWars; }
 
-    /**
-     * Set the item location
-     * @param x X location in pixels
-     * @param y Y location in pixels
-     */
-    virtual void SetLocation(double x, double y) { mX = x; mY = y; }
 
     virtual void Draw(wxGraphicsContext* graphics);
 
@@ -93,7 +102,7 @@ public:
     /**
     * Handle updates for animation
     */
-    virtual void Update() {}
+    virtual void Update(double elapsed) {}
 
     virtual ~Item();
 

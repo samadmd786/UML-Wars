@@ -16,6 +16,13 @@
 class ItemPen : public GraphicsItem{
 private:
 
+    /// boolean indicator of whether the pen has been launched
+    bool mLaunched = false;
+
+    // if the pen has been launched, it must store has the direction it has been fired in
+    double mDirX = 0; ///< indicator for the X velocity direction
+    double mDirY = 0; ///< indicator for the Y velocity direction
+
 public:
     /// Default constructor (disabled)
     ItemPen() = delete;
@@ -28,8 +35,9 @@ public:
 
     ItemPen(UMLWars* umlWars);
 
-    virtual void Draw(wxGraphicsContext* graphics) override;
-    virtual void Update() override;
+    void Launch();
+
+    virtual void Update(double elapsed) override;
 
 };
 

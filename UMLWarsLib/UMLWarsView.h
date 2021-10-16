@@ -16,17 +16,19 @@ class UMLWarsView : public wxWindow {
 private:
     /// An object that describes our UML Wars game
     UMLWars mUMLWars;
-
-    void OnPaint(wxPaintEvent& event);
-    void OnMouseMove(wxMouseEvent &event);
-
     /// The timer that allows for animation
     wxTimer mTimer;
-
     /// Stopwatch used to measure elapsed time
     wxStopWatch mStopWatch;
+    /// last stopwatch time
+    long mTime = 0;
 
     double mCurrentSpeed = 1;
+
+    // private functions
+    void OnPaint(wxPaintEvent& event);
+    void OnMouseMove(wxMouseEvent &event);
+    void OnLeftDown(wxMouseEvent &event);
 
 public:
     UMLWarsView();

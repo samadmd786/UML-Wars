@@ -10,6 +10,7 @@
 
 #include "Item.h"
 #include <memory>
+#include <wx/graphics.h>
 
 class GraphicsItem : public Item{
 protected:

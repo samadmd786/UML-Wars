@@ -9,6 +9,11 @@
 #define UMLWARS_UMLWARS_H
 
 #include <random>
+#include <memory>
+#include "Item.h"
+#include "GraphicsItem.h"
+#include "ItemHarold.h"
+#include "ItemPen.h"
 
 class Item;
 
@@ -27,13 +32,20 @@ private:
     /// Random number generator
     std::mt19937 mRandom;
 
+    /// Harold Pointer
+    std::shared_ptr<ItemHarold> mHarold;
+
+    /// Pointer for most recently added pen object
+    std::shared_ptr<ItemPen> mPen;
+
+    /// Vector of items
+    std::vector<std::shared_ptr<Item>> mItems;
+
 
 public:
     UMLWars();
     /// Size of the area we are going to draw on in pixels
     constexpr static double Size = 1000;
-
-    std::vector<std::shared_ptr<Item>> mItems;
 
     /**
      * Getter for the mouse x position
@@ -59,8 +71,34 @@ public:
      */
     void SetMouseY(double oY) { mMouseY = (oY - mYOffset)/mScale; }
 
+    /**
+     * Setter for Harold
+     * @param harold a pointer to harold
+     */
+    void SetHarold(std::shared_ptr<ItemHarold> harold) { mHarold = harold; }
+
+    /**
+     * Getter for Harold
+     * @return a shared pointer to harold
+     */
+     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
+
+     /**
+      * Setter for the most recent pen
+      * @param pen a pointer to the pen
+      */
+     void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
+
+    /**
+     * Getter for the most recent pen
+     * @return a shared pointer to the pen
+     */
+    std::shared_ptr<ItemPen> GetPen() { return mPen; }
+
     void Add(std::shared_ptr<Item> item);
+    bool LaunchPen();
     void OnDraw(wxGraphicsContext* graphics, int width, int height);
+    void Update(double elapsed);
 
     /**
      * Get the random number generator
