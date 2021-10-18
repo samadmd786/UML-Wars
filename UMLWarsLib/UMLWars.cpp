@@ -126,10 +126,21 @@ bool UMLWars::LaunchPen()
     if (mPen)
     {
         mPen->Launch();
-        mPen = nullptr;
+        //mPen = nullptr;
         return true;
     }
     return false;
+}
+
+/**
+ * Resets a launched pen once it hits a box
+ * or goes off screen
+ */
+void UMLWars::ResetPen()
+{
+    mPen->SetX(29);
+    mPen->SetY(846);
+    mPen->SetLaunch(false);
 }
 
 UMLWars::UMLWars()

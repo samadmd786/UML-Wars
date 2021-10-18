@@ -10,6 +10,18 @@
 
 using namespace std;
 
+/// constant for x-value at right of the screen
+const int rightOfScreen = 625;
+
+/// constant for x-value at left of the screen
+const int leftOfScreen = -625;
+
+/// constant for y-value at top of screen
+const int topOfScreen = 0;
+
+/// constant for y-value at bottom of screen
+const int bottomOfScreen = 1000;
+
 /// Pen filename
 const wstring PenImageName = L"images/redpen.png";
 
@@ -64,5 +76,24 @@ void ItemPen::Update(double elapsed)
         SetX(GetX() + GetSpeed()*cos(firingAngle));
         SetY(GetY() + GetSpeed()*sin(firingAngle));
 
+        if (IsOffScreen())
+        {
+            GetUMLWars()->ResetPen();
+        }
+
     }
+}
+
+/**
+ * Detects if the pen has been launched off the screen
+ * @return true- if pen is off screen
+ */
+bool ItemPen::IsOffScreen()
+{
+    // checks if pen is off-screen
+    if (GetX() > rightOfScreen || GetX() < leftOfScreen || GetY() > bottomOfScreen || GetY() < topOfScreen)
+    {
+        return true;
+    }
+    return false;
 }
