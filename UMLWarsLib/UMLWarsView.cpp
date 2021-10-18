@@ -125,3 +125,4 @@ void UMLWarsView::OnTimer(wxTimerEvent& event)
     }
     Refresh();
 }
+

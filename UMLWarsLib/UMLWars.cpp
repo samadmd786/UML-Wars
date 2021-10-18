@@ -147,3 +147,56 @@ UMLWars::UMLWars()
 {
 
 }
+
+/**
+ * Load XML file
+ * @param fileXML file directory
+ */
+void UMLWars::LoadXML(std::wstring fileXML)
+{
+    wxXmlDocument xmlDocument;
+    xmlDocument.Load(fileXML);
+
+    auto root = xmlDocument.GetRoot();
+    auto classInherit = root->GetChildren();
+    for(; classInherit; classInherit=classInherit->GetNext()) {
+        auto name = classInherit->GetName();
+        for (auto child = classInherit->GetChildren(); child; child = child->GetNext()) {
+            auto nameNext = child->GetName();
+            if (name == "class") {
+                if (child->GetAttribute("bad") == wxEmptyString) {
+                    const wxString goodClassItem = child->GetName();
+                    if (nameNext == "name") {
+                        mNames.push_back(goodClassItem);
+                    }
+                    else if (nameNext == "attribute") {
+                        mAttributes.push_back(goodClassItem);
+                    }
+                    else if (nameNext == "operation") {
+                        mOperations.push_back(goodClassItem);
+                    }
+                }else{
+                    const wxString badClassItem = child->GetName();
+                    if (nameNext == "name") {
+                        mBadNames.push_back(badClassItem);
+                    }
+                    else if (nameNext == "attribute") {
+                        mBadAttributes.push_back(badClassItem);
+                    }
+                    else if (nameNext == "operation") {
+                        mBadOperations.push_back(badClassItem);
+                    }
+                }
+            }else if(name == "inheritance"){
+                if (child->GetAttribute("bad") == wxEmptyString){
+                    const wxString inheritedClassItem = child->GetName();
+                    mInherited.push_back(inheritedClassItem);
+                }else{
+                    const wxString badInheritedClassItem = child->GetName();
+                    mBadInherited.push_back(badInheritedClassItem);
+                }
+            }
+        }
+    }
+
+}

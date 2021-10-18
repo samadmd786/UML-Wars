@@ -41,6 +41,23 @@ private:
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
+    /// List of good class names
+    std::vector<const wxString> mNames;
+    /// List of good class names
+    std::vector<const wxString> mBadNames;
+    /// List of good class names
+    std::vector<const wxString> mAttributes;
+    /// List of good class names
+    std::vector<const wxString> mBadAttributes;
+    /// List of good class names
+    std::vector<const wxString> mOperations;
+    /// List of good class names
+    std::vector<const wxString> mBadOperations;
+    /// List of good class names
+    std::vector<const wxString> mInherited;
+    /// List of good class names
+    std::vector<const wxString> mBadInherited;
+
 
 public:
     UMLWars();
@@ -106,6 +123,10 @@ public:
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() {return mRandom;}
+
+    void LoadXML();
+
+    void LoadXML(std::wstring fileDirectory);
 };
 
 #endif //UMLWARS_UMLWARS_H

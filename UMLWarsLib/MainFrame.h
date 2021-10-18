@@ -21,6 +21,7 @@ private:
 
     bool mStandard = true;
 
+
 public:
     void Initialize();
 
