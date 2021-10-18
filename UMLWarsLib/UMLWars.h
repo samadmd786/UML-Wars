@@ -41,6 +41,11 @@ private:
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
+public:
+    UMLWars();
+    /// Size of the area we are going to draw on in pixels
+    constexpr static double Size = 1000;
+
     /// List of good class names
     std::vector<wxString> mNames;
     /// List of good class names
@@ -57,13 +62,6 @@ private:
     std::vector<wxString> mInherited;
     /// List of good class names
     std::vector<wxString> mBadInherited;
-
-
-public:
-    UMLWars();
-    /// Size of the area we are going to draw on in pixels
-    constexpr static double Size = 1000;
-
     /**
      * Getter for the mouse x position
      * @return mouse x coordinate
@@ -124,7 +122,7 @@ public:
      */
     std::mt19937 &GetRandom() {return mRandom;}
 
-    void LoadXML(std::wstring fileXML);
+    void LoadXML(wxString fileXML);
 };
 
 #endif //UMLWARS_UMLWARS_H

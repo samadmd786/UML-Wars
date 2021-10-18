@@ -64,10 +64,6 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     graphics->SetPen(*wxWHITE_PEN);
     graphics->DrawRectangle(-Width/2., 0, Width, Height);
 
-
-
-
-
     for(auto item : mItems)
     {
         item->Draw(graphics);
@@ -145,14 +141,15 @@ void UMLWars::ResetPen()
 
 UMLWars::UMLWars()
 {
-
+    wxString file("data/uml.xml");
+    LoadXML(file);
 }
 
 /**
  * Load XML file
  * @param fileXML file directory
  */
-void UMLWars::LoadXML(std::wstring fileXML)
+void UMLWars::LoadXML(wxString fileXML)
 {
     wxXmlDocument xmlDocument;
     xmlDocument.Load(fileXML);
@@ -165,7 +162,7 @@ void UMLWars::LoadXML(std::wstring fileXML)
             auto nameNext = child->GetName();
             if (name == "class") {
                 if (child->GetAttribute("bad") == wxEmptyString) {
-                    const wxString goodClassItem = child->GetName();
+                    const wxString goodClassItem = child->GetNodeContent();
                     if (nameNext == "name") {
                         mNames.push_back(goodClassItem);
                     }
@@ -176,7 +173,7 @@ void UMLWars::LoadXML(std::wstring fileXML)
                         mOperations.push_back(goodClassItem);
                     }
                 }else{
-                    const wxString badClassItem = child->GetName();
+                    const wxString badClassItem = child->GetNodeContent();
                     if (nameNext == "name") {
                         mBadNames.push_back(badClassItem);
                     }
@@ -189,10 +186,10 @@ void UMLWars::LoadXML(std::wstring fileXML)
                 }
             }else if(name == "inheritance"){
                 if (child->GetAttribute("bad") == wxEmptyString){
-                    const wxString inheritedClassItem = child->GetName();
+                    const wxString inheritedClassItem = child->GetNodeContent();
                     mInherited.push_back(inheritedClassItem);
                 }else{
-                    const wxString badInheritedClassItem = child->GetName();
+                    const wxString badInheritedClassItem = child->GetNodeContent();
                     mBadInherited.push_back(badInheritedClassItem);
                 }
             }
