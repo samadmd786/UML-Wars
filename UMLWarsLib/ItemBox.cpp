@@ -15,11 +15,14 @@ using namespace std;
  * Constructor
  * @param umlwars Aquarium this fish is a member of
  */
-ItemBox::ItemBox(UMLWars *umlWars) : Item(umlWars)
+ItemBox::ItemBox(UMLWars *umlWars, vector<wxString> attributes, wxString className) : Item(umlWars)
 {
     std::uniform_real_distribution<> distribution(-500, 500);
     double random = distribution(umlWars->GetRandom());
     SetX(random);
+
+    mClassName = className;
+    mAttributes = attributes;
 
     if(random >= 0){
         mDirection = -1;
@@ -36,15 +39,52 @@ ItemBox::ItemBox(UMLWars *umlWars) : Item(umlWars)
 
 /**
  * Draw this item
- * @param dc - Device context to draw on
+ * @param graphics - Device context to draw on
  */
 void ItemBox::Draw(wxGraphicsContext* graphics)
 {
-    /// Draw a filled rectangle
+    ///
+    /// Measuring text
+    ///
+    wxFont font(wxSize(0, 20),
+            wxFONTFAMILY_SWISS,
+            wxFONTSTYLE_NORMAL,
+            wxFONTWEIGHT_NORMAL);
+    graphics->SetFont(font, wxColour(0, 0, 0));
+
+    /// Initial width and height according to the class name
+    double wid, hit;
+    graphics->GetTextExtent(mClassName, &wid, &hit);
+
+    for (auto attribute : mAttributes) {
+        /// Initial width and height according to the class name
+        double width, height;
+        graphics->GetTextExtent(attribute, &width, &height);
+        /// Set wid height to maximums
+        if (width >= wid) {
+            wid = width;
+        }
+        if (height >= hit) {
+            hit = height;
+        }
+    }
+
+    /// Rectangle setup
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), 100, 50);
+    graphics->DrawRectangle(GetX(), GetY(), wid, hit * (mAttributes.size() + 2) );
+    graphics->DrawText(mClassName, GetX(), GetY());
+    graphics->StrokeLine(GetX(), GetY() + hit, GetX() + wid, GetY() + hit);
+
+    int i = 1;
+    for (auto attribute : mAttributes) {
+        graphics->DrawText(attribute, GetX(), GetY() + hit * i);
+        i++;
+    }
+
+    mWidth = wid;
+    mHeight = hit * (mAttributes.size() + 2);
 }
 
 /**

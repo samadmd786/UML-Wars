@@ -9,12 +9,17 @@
 #define UMLWARS_ITEMBOX_H
 
 #include "Item.h"
+#include <vector>
 
 class ItemBox : public Item{
 private:
     double mXDir = 0;
     double mYDir = 0;
     double mDirection = 1;
+    std::vector<wxString> mAttributes;
+    wxString mClassName;
+    double mHeight = 0;
+    double mWidth = 0;
 
 public:
 
@@ -27,11 +32,23 @@ public:
     /// Assignment operator
     void operator=(const ItemBox &) = delete;
 
-    ItemBox(UMLWars* umlWars);
+    ItemBox(UMLWars* umlWars, std::vector<wxString> attributes, wxString className);
 
     virtual void Update(double elapsed) override;
 
     void Draw(wxGraphicsContext* graphics);
+
+    /**
+    * The width of the item
+    * @return width in pixels
+    */
+    double GetWidth() const { return mWidth; }
+
+    /**
+     * The height of the item
+     * @return height in pixels
+     */
+    double GetHeight() const { return mHeight; }
 };
 
 #endif //UMLWARS_ITEMBOX_H
