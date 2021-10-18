@@ -43,25 +43,10 @@ private:
 
 public:
     UMLWars();
+
     /// Size of the area we are going to draw on in pixels
     constexpr static double Size = 1000;
 
-    /// List of good class names
-    std::vector<wxString> mNames;
-    /// List of good class names
-    std::vector<wxString> mBadNames;
-    /// List of good class names
-    std::vector<wxString> mAttributes;
-    /// List of good class names
-    std::vector<wxString> mBadAttributes;
-    /// List of good class names
-    std::vector<wxString> mOperations;
-    /// List of good class names
-    std::vector<wxString> mBadOperations;
-    /// List of good class names
-    std::vector<wxString> mInherited;
-    /// List of good class names
-    std::vector<wxString> mBadInherited;
     /**
      * Getter for the mouse x position
      * @return mouse x coordinate
@@ -122,7 +107,6 @@ public:
      */
     std::mt19937 &GetRandom() {return mRandom;}
 
-    void LoadXML(wxString fileXML);
 };
 
 #endif //UMLWARS_UMLWARS_H
