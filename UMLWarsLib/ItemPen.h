@@ -43,8 +43,6 @@ public:
 
     void Launch();
 
-    bool IsOffScreen();
-
     virtual void Update(double elapsed) override;
 
 };

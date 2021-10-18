@@ -10,6 +10,17 @@
 
 using namespace std;
 
+/// constant for x-value at right of the screen
+const int rightOfScreen = 625;
+
+/// constant for x-value at left of the screen
+const int leftOfScreen = -625;
+
+/// constant for y-value at top of screen
+const int topOfScreen = 0;
+
+/// constant for y-value at bottom of screen
+const int bottomOfScreen = 1000;
 
 ///**
 // * Test to see if we hit this object with a mouse
@@ -59,6 +70,20 @@ void Item::Draw(wxGraphicsContext* graphics)
 //    graphics->DrawBitmap(mItemBitmap, -itemWidth/2, -itemHeight/2, itemWidth, itemHeight);
 //    graphics->PopState();   // Restore the graphics state
 //    //graphics->DrawBitmap(mItemBitmap, GetX() - itemWidth/2, GetY() - itemHeight/2, itemWidth, itemHeight);
+}
+
+/**
+ * Detects if item is off the screen
+ * @return true- if pen is off screen
+ */
+bool Item::IsOffScreen()
+{
+    // checks if pen is off-screen
+    if (GetX() > rightOfScreen || GetX() < leftOfScreen || GetY() > bottomOfScreen || GetY() < topOfScreen)
+    {
+        return true;
+    }
+    return false;
 }
 
 /**

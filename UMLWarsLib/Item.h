@@ -105,6 +105,8 @@ public:
     */
     virtual void Update(double elapsed) {}
 
+    bool IsOffScreen();
+
     virtual ~Item();
 
 protected:
