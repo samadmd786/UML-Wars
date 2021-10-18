@@ -14,6 +14,7 @@
 #include "GraphicsItem.h"
 #include "ItemHarold.h"
 #include "ItemPen.h"
+#include "LoadXML.h"
 
 class Item;
 
@@ -28,6 +29,9 @@ private:
     // mouse location information
     double mMouseX = 0; ///< x coordinate of the mouse in virtual pixels
     double mMouseY = 0; ///< y coordinate of the mouse in virtual pixels
+
+    /// xml data holder
+    LoadXML mXML;
 
     /// Random number generator
     std::mt19937 mRandom;
@@ -106,6 +110,12 @@ public:
      * @return Pointer to the random number generator
      */
     std::mt19937 &GetRandom() {return mRandom;}
+
+    /**
+     * Get the XML
+     * @return get the xml loaded
+     */
+    LoadXML GetXML() {return mXML;}
 
 };
 

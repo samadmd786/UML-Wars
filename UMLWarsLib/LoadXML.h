@@ -5,33 +5,38 @@
 #ifndef UMLWARS_LOADXML_H
 #define UMLWARS_LOADXML_H
 
+#include "ElementHolder.h"
 
-#include "UMLWars.h"
-class UMLWars;
-
-class LoadXML : public UMLWars {
+/**
+ * LoadXML class for loading the UML XML File
+ */
+class LoadXML{
 
 private:
     /// List of good class names
-    std::vector<wxString> mNames;
+    std::vector<ElementHolder> mNames;
     /// List of bad class names
-    std::vector<wxString> mBadNames;
+    std::vector<ElementHolder> mBadNames;
     /// List of good attributes
-    std::vector<wxString> mAttributes;
+    std::vector<ElementHolder> mAttributes;
     /// List of bad attributes
-    std::vector<wxString> mBadAttributes;
+    std::vector<ElementHolder> mBadAttributes;
     /// List of good operations
-    std::vector<wxString> mOperations;
+    std::vector<ElementHolder> mOperations;
     /// List of bad oeprations
-    std::vector<wxString> mBadOperations;
+    std::vector<ElementHolder> mBadOperations;
     /// List of good inheritance
-    std::vector<wxString> mInherited;
+    std::vector<ElementHolder> mInherited;
     /// List of bad inheritance
-    std::vector<wxString> mBadInherited;
+    std::vector<ElementHolder> mBadInherited;
 
 public:
-    void LoadUML(wxString fileXML);
+    /// Constructor
+    LoadXML();
 
+    ElementHolder GetClassName(bool good = true);
+
+    std::vector<ElementHolder> GetAttributes(bool good = true);
 };
 
 

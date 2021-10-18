@@ -15,7 +15,7 @@ using namespace std;
  * Constructor
  * @param umlwars Aquarium this fish is a member of
  */
-ItemBox::ItemBox(UMLWars *umlWars, vector<wxString> attributes, wxString className) : Item(umlWars)
+ItemBox::ItemBox(UMLWars *umlWars, vector<ElementHolder> attributes, wxString className) : Item(umlWars)
 {
     std::uniform_real_distribution<> distribution(-500, 500);
     double random = distribution(umlWars->GetRandom());
@@ -59,7 +59,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     for (auto attribute : mAttributes) {
         /// Initial width and height according to the class name
         double width, height;
-        graphics->GetTextExtent(attribute, &width, &height);
+        graphics->GetTextExtent(attribute.GetName(), &width, &height);
         /// Set wid height to maximums
         if (width >= wid) {
             wid = width;
@@ -79,7 +79,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
 
     int i = 1;
     for (auto attribute : mAttributes) {
-        graphics->DrawText(attribute, GetX(), GetY() + hit * i);
+        graphics->DrawText(attribute.GetName(), GetX(), GetY() + hit * i);
         i++;
     }
 

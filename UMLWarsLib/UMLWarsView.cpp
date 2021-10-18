@@ -113,8 +113,9 @@ void UMLWarsView::OnLeftDown(wxMouseEvent& event)
  */
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
-    if (mStopWatch.Time()%2000>=0 && mStopWatch.Time()%2000<=30) {
-        auto Box = make_shared<ItemBox>(&mUMLWars, mUMLWars.mAttributes, mUMLWars.mNames[0]);
+    if (mStopWatch.Time()%2000>=0 && mStopWatch.Time()%2000<=20) {
+        LoadXML xml = mUMLWars.GetXML();
+        auto Box = make_shared<ItemBox>(&mUMLWars, xml.GetAttributes(), xml.GetClassName().GetName());
         Box->SetSpeed(mCurrentSpeed);
         mUMLWars.Add(Box);
     }

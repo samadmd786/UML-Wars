@@ -9,14 +9,16 @@
 #define UMLWARS_ITEMBOX_H
 
 #include "Item.h"
+#include "ElementHolder.h"
 #include <vector>
 
 class ItemBox : public Item{
 private:
+
     double mXDir = 0;
     double mYDir = 0;
     double mDirection = 1;
-    std::vector<wxString> mAttributes;
+    std::vector<ElementHolder> mAttributes;
     wxString mClassName;
     double mHeight = 0;
     double mWidth = 0;
@@ -32,7 +34,7 @@ public:
     /// Assignment operator
     void operator=(const ItemBox &) = delete;
 
-    ItemBox(UMLWars* umlWars, std::vector<wxString> attributes, wxString className);
+    ItemBox(UMLWars* umlWars, std::vector<ElementHolder> attributes, wxString className);
 
     virtual void Update(double elapsed) override;
 

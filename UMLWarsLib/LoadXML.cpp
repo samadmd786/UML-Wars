@@ -2,14 +2,16 @@
  * @file LoadXML.cpp
  * @author Aesha Ray
  */
+#include <random>
 #include "LoadXML.h"
 
+const wxString fileXML("data/uml.xml");
 
 /**
  * Load XML file
  * @param fileXML file directory
  */
-void LoadXML::LoadUML(wxString fileXML)
+LoadXML::LoadXML()
 {
     wxXmlDocument xmlDocument;
     xmlDocument.Load(fileXML);
@@ -22,7 +24,7 @@ void LoadXML::LoadUML(wxString fileXML)
             auto nameNext = child->GetName();
             if (name == "class") {
                 if (child->GetAttribute("bad") == wxEmptyString) {
-                    const wxString goodClassItem = child->GetNodeContent();
+                    const ElementHolder goodClassItem(child->GetNodeContent(), "");
                     if (nameNext == "name") {
                         mNames.push_back(goodClassItem);
                     }
@@ -32,8 +34,8 @@ void LoadXML::LoadUML(wxString fileXML)
                     else if (nameNext == "operation") {
                         mOperations.push_back(goodClassItem);
                     }
-                }else{
-                    const wxString badClassItem = child->GetNodeContent();
+                } else{
+                    const ElementHolder badClassItem(child->GetNodeContent(), child->GetAttribute("bad"));
                     if (nameNext == "name") {
                         mBadNames.push_back(badClassItem);
                     }
@@ -44,15 +46,43 @@ void LoadXML::LoadUML(wxString fileXML)
                         mBadOperations.push_back(badClassItem);
                     }
                 }
-            }else if(name == "inheritance"){
+            } else if(name == "inheritance"){
                 if (child->GetAttribute("bad") == wxEmptyString){
-                    const wxString inheritedClassItem = child->GetNodeContent();
+                    const ElementHolder inheritedClassItem(child->GetNodeContent(), "");
                     mInherited.push_back(inheritedClassItem);
                 }else{
-                    const wxString badInheritedClassItem = child->GetNodeContent();
+                    const ElementHolder badInheritedClassItem(child->GetNodeContent(), child->GetAttribute("bad"));
                     mBadInherited.push_back(badInheritedClassItem);
                 }
             }
         }
     }
+}
+
+/**
+ * Get Class Name
+ * @param good, defaults to true
+ * @return element ElementHolder item with the good/bad class
+*/
+ElementHolder LoadXML::GetClassName(bool good) {
+    std::random_device rd;
+    std::mt19937 rand(rd());
+
+    std::shuffle(mNames.begin(), mNames.end(), rand);
+    std::shuffle(mBadNames.begin(), mBadNames.end(), rand);
+    return good ? mNames[0] : mBadNames[0];
+}
+
+/**
+ * Get Random Attributes
+ * @param good, defaults to true
+ * @return element ElementHolder item with the good/bad class
+*/
+std::vector<ElementHolder> LoadXML::GetAttributes(bool good) {
+    std::random_device rd;
+    std::mt19937 rand(rd());
+
+    std::shuffle(mAttributes.begin(), mAttributes.end(), rand);
+    std::shuffle(mBadAttributes.begin(), mBadAttributes.end(), rand);
+    return good ? mAttributes : mBadAttributes;
 }

@@ -141,6 +141,4 @@ void UMLWars::ResetPen()
 
 UMLWars::UMLWars()
 {
-    wxString file("data/uml.xml");
-    LoadUML(file);
 }
