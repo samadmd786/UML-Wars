@@ -10,6 +10,7 @@
 
 using namespace std;
 
+
 /// Pen filename
 const wstring PenImageName = L"images/redpen.png";
 
@@ -64,5 +65,12 @@ void ItemPen::Update(double elapsed)
         SetX(GetX() + GetSpeed()*cos(firingAngle));
         SetY(GetY() + GetSpeed()*sin(firingAngle));
 
+        if (IsOffScreen())
+        {
+            GetUMLWars()->ResetPen();
+        }
+
     }
 }
+
+

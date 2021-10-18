@@ -14,6 +14,7 @@
 
 using namespace std;
 
+
 /// Frame duration in milliseconds
 const int FrameDuration = 25;
 
@@ -100,7 +101,6 @@ void UMLWarsView::OnLeftDown(wxMouseEvent& event)
     if (mUMLWars.LaunchPen())
     {
         // we need to start a timer to give harold another pen
-
     }
 
     // else there is no pen to launch, do nothing

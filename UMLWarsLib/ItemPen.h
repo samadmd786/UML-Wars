@@ -35,6 +35,12 @@ public:
 
     ItemPen(UMLWars* umlWars);
 
+    /**
+     * Setter for mLaunched
+     * @param launch - true if launched, false if not
+     */
+    void SetLaunch(bool launch) { mLaunched = launch; }
+
     void Launch();
 
     virtual void Update(double elapsed) override;

@@ -97,6 +97,7 @@ public:
 
     void Add(std::shared_ptr<Item> item);
     bool LaunchPen();
+    void ResetPen();
     void OnDraw(wxGraphicsContext* graphics, int width, int height);
     void Update(double elapsed);
 

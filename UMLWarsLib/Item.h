@@ -12,6 +12,7 @@
 
 class UMLWars;
 
+
 /**
  * Base class for any item in our UML War game
  */
@@ -103,6 +104,8 @@ public:
     * Handle updates for animation
     */
     virtual void Update(double elapsed) {}
+
+    bool IsOffScreen();
 
     virtual ~Item();
 
