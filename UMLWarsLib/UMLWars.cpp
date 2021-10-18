@@ -65,6 +65,19 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     graphics->DrawRectangle(-Width/2., 0, Width, Height);
 
 
+
+
+
+    for(auto item : mItems)
+    {
+        item->Draw(graphics);
+    }
+
+
+    //
+    // Draw in virtual pixels on the graphics context
+    //
+    // INSERT YOUR DRAWING CODE HERE
     // Draw the scoreboard
     wxFont font(wxSize(0, 45),
             wxFONTFAMILY_SWISS,
@@ -88,18 +101,6 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     graphics->DrawText(to_string(missedNum), 50, 50);
     graphics->DrawText(to_string(unfairNum), 350, 50);
 
-
-
-    for(auto item : mItems)
-    {
-        item->Draw(graphics);
-    }
-
-
-    //
-    // Draw in virtual pixels on the graphics context
-    //
-    // INSERT YOUR DRAWING CODE HERE
 
     graphics->PopState();
 }

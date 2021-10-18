@@ -10,11 +10,14 @@
 
 #include "pch.h"
 
+/**
+ * CLass to display the score on the scoreboard
+ */
 class ScoreBoard {
 private:
-   int mUnfair = 0;
-   int mMissed = 0;
-   int mCorrect = 0;
+    int mUnfair = 0;
+    int mMissed = 0;
+    int mCorrect = 0;
 public:
 
 };
