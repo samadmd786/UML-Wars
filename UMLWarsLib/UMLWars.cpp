@@ -198,5 +198,4 @@ void UMLWars::LoadXML(std::wstring fileXML)
             }
         }
     }
-
 }

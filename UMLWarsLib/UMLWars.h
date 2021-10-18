@@ -42,21 +42,21 @@ private:
     std::vector<std::shared_ptr<Item>> mItems;
 
     /// List of good class names
-    std::vector<const wxString> mNames;
+    std::vector<wxString> mNames;
     /// List of good class names
-    std::vector<const wxString> mBadNames;
+    std::vector<wxString> mBadNames;
     /// List of good class names
-    std::vector<const wxString> mAttributes;
+    std::vector<wxString> mAttributes;
     /// List of good class names
-    std::vector<const wxString> mBadAttributes;
+    std::vector<wxString> mBadAttributes;
     /// List of good class names
-    std::vector<const wxString> mOperations;
+    std::vector<wxString> mOperations;
     /// List of good class names
-    std::vector<const wxString> mBadOperations;
+    std::vector<wxString> mBadOperations;
     /// List of good class names
-    std::vector<const wxString> mInherited;
+    std::vector<wxString> mInherited;
     /// List of good class names
-    std::vector<const wxString> mBadInherited;
+    std::vector<wxString> mBadInherited;
 
 
 public:
@@ -124,9 +124,7 @@ public:
      */
     std::mt19937 &GetRandom() {return mRandom;}
 
-    void LoadXML();
-
-    void LoadXML(std::wstring fileDirectory);
+    void LoadXML(std::wstring fileXML);
 };
 
 #endif //UMLWARS_UMLWARS_H
