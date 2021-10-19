@@ -19,7 +19,6 @@ const static int Width = 1250;
 /// Game area height in virtual pixels
 const static int Height = 1000;
 
-
 /**
  * Add an item to the UML Wars game
  * @param item - New item to add
@@ -35,21 +34,20 @@ void UMLWars::Add(std::shared_ptr<Item> item)
  * @param width Width of the client window
  * @param height Height of the client window
  */
-void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
+void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
 {
     //
     // Automatic Scaling
     //
-    auto scaleX = double(width) / double(Width);
-    auto scaleY = double(height) / double(Height);
+    auto scaleX = double(width)/double(Width);
+    auto scaleY = double(height)/double(Height);
     mScale = min(scaleX, scaleY);
 
-    mXOffset = width / 2.;
+    mXOffset = width/2.;
     mYOffset = 0;
-    if (height > Height * mScale) {
-        mYOffset = (float)((height - Height * mScale) / 2);
+    if (height>Height*mScale) {
+        mYOffset = (float) ((height-Height*mScale)/2);
     }
-
 
     graphics->PushState();
 
@@ -64,8 +62,7 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     graphics->SetPen(*wxWHITE_PEN);
     graphics->DrawRectangle(-Width/2., 0, Width, Height);
 
-    for(auto item : mItems)
-    {
+    for (auto item: mItems) {
         item->Draw(graphics);
     }
 
@@ -97,7 +94,6 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
     graphics->DrawText(to_string(missedNum), 50, 50);
     graphics->DrawText(to_string(unfairNum), 350, 50);
 
-
     graphics->PopState();
 }
 
@@ -107,8 +103,7 @@ void UMLWars::OnDraw(wxGraphicsContext *graphics, int width, int height)
  */
 void UMLWars::Update(double elapsed)
 {
-    for(auto item : mItems)
-    {
+    for (auto item: mItems) {
         item->Update(elapsed);
     }
 }
@@ -119,8 +114,7 @@ void UMLWars::Update(double elapsed)
  */
 bool UMLWars::LaunchPen()
 {
-    if (mPen)
-    {
+    if (mPen) {
         mPen->Launch();
         //mPen = nullptr;
         return true;
@@ -137,6 +131,13 @@ void UMLWars::ResetPen()
     mPen->SetX(29);
     mPen->SetY(846);
     mPen->SetLaunch(false);
+
+}
+
+void UMLWars::DeleteBox()
+{
+//   mItemBox;
+//   mItemBox;
 }
 
 UMLWars::UMLWars()

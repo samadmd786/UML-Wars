@@ -10,12 +10,12 @@
 
 using namespace std;
 
-
 /**
  * Constructor
- * @param umlwars Aquarium this fish is a member of
+ * @param umlwars UMLWars this block is a member of
  */
-ItemBox::ItemBox(UMLWars *umlWars, vector<ElementHolder> attributes, wxString className) : Item(umlWars)
+ItemBox::ItemBox(UMLWars* umlWars, vector<ElementHolder> attributes, wxString className)
+        :Item(umlWars)
 {
     std::uniform_real_distribution<> distribution(-500, 500);
     double random = distribution(umlWars->GetRandom());
@@ -24,14 +24,14 @@ ItemBox::ItemBox(UMLWars *umlWars, vector<ElementHolder> attributes, wxString cl
     mClassName = className;
     mAttributes = attributes;
 
-    if(random >= 0){
+    if (random>=0) {
         mDirection = -1;
     }
 
-    std::uniform_real_distribution<> xDistribution(0.1,0.5);
+    std::uniform_real_distribution<> xDistribution(0.1, 0.5);
     mXDir = xDistribution(umlWars->GetRandom());
 
-    std::uniform_real_distribution<> yDistribution(0.1,0.5);
+    std::uniform_real_distribution<> yDistribution(0.1, 0.5);
     mYDir = yDistribution(umlWars->GetRandom());
 
     SetSpeed(1);
@@ -56,15 +56,15 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     double wid, hit;
     graphics->GetTextExtent(mClassName, &wid, &hit);
 
-    for (auto attribute : mAttributes) {
+    for (auto attribute: mAttributes) {
         /// Initial width and height according to the class name
         double width, height;
         graphics->GetTextExtent(attribute.GetName(), &width, &height);
         /// Set wid height to maximums
-        if (width >= wid) {
+        if (width>=wid) {
             wid = width;
         }
-        if (height >= hit) {
+        if (height>=hit) {
             hit = height;
         }
     }
@@ -73,18 +73,18 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), wid, hit * (mAttributes.size() + 2) );
+    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size()+2));
     graphics->DrawText(mClassName, GetX(), GetY());
-    graphics->StrokeLine(GetX(), GetY() + hit, GetX() + wid, GetY() + hit);
+    graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
 
     int i = 1;
-    for (auto attribute : mAttributes) {
-        graphics->DrawText(attribute.GetName(), GetX(), GetY() + hit * i);
+    for (auto attribute: mAttributes) {
+        graphics->DrawText(attribute.GetName(), GetX(), GetY()+hit*i);
         i++;
     }
 
     mWidth = wid;
-    mHeight = hit * (mAttributes.size() + 2);
+    mHeight = hit*(mAttributes.size()+2);
 }
 
 /**
@@ -92,6 +92,10 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
 */
 void ItemBox::Update(double elapsed)
 {
-    SetX(GetX() + (GetSpeed() * mDirection * mXDir));
-    SetY(GetY() + (GetSpeed() * mYDir));
+    SetX(GetX()+(GetSpeed()*mDirection*mXDir));
+    SetY(GetY()+(GetSpeed()*mYDir));
+
+    if (IsOffScreen()) {
+      GetUMLWars()->DeleteBox();
+    }
 }
