@@ -98,7 +98,7 @@ public:
 
     virtual void Draw(wxGraphicsContext* graphics);
 
-    //    virtual bool HitTest(int x, int y);
+    virtual bool HitTest(int x, int y);
 
     /**
     * Handle updates for animation

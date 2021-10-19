@@ -51,6 +51,8 @@ public:
      * @return height in pixels
      */
     double GetHeight() const { return mHeight; }
+
+    virtual bool HitTest(int x, int y);
 };
 
 #endif //UMLWARS_ITEMBOX_H

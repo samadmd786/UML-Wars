@@ -22,16 +22,16 @@ const int topOfScreen = 0;
 /// constant for y-value at bottom of screen
 const int bottomOfScreen = 1000;
 
-///**
-// * Test to see if we hit this object with a mouse
-// * @param x - X position to test
-// * @param y - Y position to test
-// * @return true if hit
-// */
-//bool Item::HitTest(int x, int y)
-//{
-//    double wid = mItemBitmap->GetWidth();
-//    double hit = mItemBitmap->GetHeight();
+/**
+ * Test to see if we hit this object with a mouse
+ * @param x - X position to test
+ * @param y - Y position to test
+ * @return true if hit
+ */
+bool Item::HitTest(int x, int y)
+{
+//    double wid = GetWidth();
+//    double hit = GetHeight();
 //
 //    // Make x and y relative to the top-left corner of the bitmap image
 //    // Subtracting the center makes x, y relative to the image center
@@ -50,7 +50,8 @@ const int bottomOfScreen = 1000;
 //    // If the location is transparent, we are not in the drawn
 //    // part of the image
 //    return !mItemImage->IsTransparent((int)testX, (int)testY);
-//}
+    return false;
+}
 
 /**
  * Draw this item
@@ -79,8 +80,7 @@ void Item::Draw(wxGraphicsContext* graphics)
 bool Item::IsOffScreen()
 {
     // checks if pen is off-screen
-    if (GetX() > rightOfScreen || GetX() < leftOfScreen || GetY() > bottomOfScreen || GetY() < topOfScreen)
-    {
+    if (GetX()>rightOfScreen || GetX()<leftOfScreen || GetY()>bottomOfScreen || GetY()<topOfScreen) {
         return true;
     }
     return false;
@@ -97,7 +97,8 @@ Item::~Item()
  * Constructor
  * @param umlWars - The UML Wars game this item is a member of
  */
-Item::Item(UMLWars* umlWars) : mUMLWars(umlWars)
+Item::Item(UMLWars* umlWars)
+        :mUMLWars(umlWars)
 {
 }
 

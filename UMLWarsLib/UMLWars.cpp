@@ -105,7 +105,12 @@ void UMLWars::Update(double elapsed)
 {
     for (auto item: mItems) {
         item->Update(elapsed);
+
     }
+    if (!mToRemove.empty()) {
+        DeleteBox();
+    }
+
 }
 
 /**
@@ -136,10 +141,35 @@ void UMLWars::ResetPen()
 
 void UMLWars::DeleteBox()
 {
-//   mItemBox;
-//   mItemBox;
+
+    for (auto item: mToRemove) {
+        Remove(item);
+    }
+
 }
 
 UMLWars::UMLWars()
 {
 }
+
+/**
+ * Add an item to the remove vector
+ * @param item - New item to add
+ */
+void UMLWars::AddToRemove(std::shared_ptr<Item> item)
+{
+    mToRemove.push_back(item);
+    ResetPen();
+}
+
+void UMLWars::Remove(std::shared_ptr<Item> item)
+{
+    auto loc = find(begin(mItems), end(mItems), item);
+    if (loc!=end(mItems)) {
+        mItems.erase(loc);
+    }
+}
+
+
+
+

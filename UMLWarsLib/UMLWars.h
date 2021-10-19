@@ -41,13 +41,14 @@ private:
     std::shared_ptr<ItemHarold> mHarold;
     std::shared_ptr<ItemBox> mItemBox;
 
-
-
     /// Pointer for most recently added pen object
     std::shared_ptr<ItemPen> mPen;
 
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
+
+    /// Vector of items to be removed
+    std::vector<std::shared_ptr<Item>> mToRemove;
 
 public:
     UMLWars();
@@ -71,13 +72,13 @@ public:
      * Setter for the mouse x coordinate
      * @param oX the x coordinate
      */
-    void SetMouseX(double oX) { mMouseX = (oX - mXOffset)/mScale; }
+    void SetMouseX(double oX) { mMouseX = (oX-mXOffset)/mScale; }
 
     /**
      * Setter for the mouse y coordinate
      * @param oY the y coordinate
      */
-    void SetMouseY(double oY) { mMouseY = (oY - mYOffset)/mScale; }
+    void SetMouseY(double oY) { mMouseY = (oY-mYOffset)/mScale; }
 
     /**
      * Setter for Harold
@@ -89,13 +90,13 @@ public:
      * Getter for Harold
      * @return a shared pointer to harold
      */
-     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
+    std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
 
-     /**
-      * Setter for the most recent pen
-      * @param pen a pointer to the pen
-      */
-     void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
+    /**
+     * Setter for the most recent pen
+     * @param pen a pointer to the pen
+     */
+    void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
 
     /**
      * Getter for the most recent pen
@@ -104,24 +105,34 @@ public:
     std::shared_ptr<ItemPen> GetPen() { return mPen; }
 
     void Add(std::shared_ptr<Item> item);
+
+    void AddToRemove(std::shared_ptr<Item> item);
+
+    void Remove(std::shared_ptr<Item> item);
+
     bool LaunchPen();
+
     void ResetPen();
+
     void OnDraw(wxGraphicsContext* graphics, int width, int height);
+
     void Update(double elapsed);
 
     /**
      * Get the random number generator
      * @return Pointer to the random number generator
      */
-    std::mt19937 &GetRandom() {return mRandom;}
+    std::mt19937& GetRandom() { return mRandom; }
 
     /**
      * Get the XML
      * @return get the xml loaded
      */
-    LoadXML GetXML() {return mXML;}
+    LoadXML GetXML() { return mXML; }
 
     void DeleteBox();
+
+
 };
 
 #endif //UMLWARS_UMLWARS_H
