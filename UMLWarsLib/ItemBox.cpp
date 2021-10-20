@@ -56,7 +56,8 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     double wid, hit;
     graphics->GetTextExtent(mClassName, &wid, &hit);
 
-    for (auto attribute: mAttributes) {
+    for (auto attribute: mAttributes)
+    {
         /// Initial width and height according to the class name
         double width, height;
         graphics->GetTextExtent(attribute.GetName(), &width, &height);
@@ -96,7 +97,8 @@ void ItemBox::Update(double elapsed)
     SetY(GetY()+(GetSpeed()*mYDir));
     double penX = GetUMLWars()->GetPen()->GetX();
     double penY = GetUMLWars()->GetPen()->GetY();
-    if (IsOffScreen() || HitTest(penX, penY)) {
+    if (IsOffScreen() || HitTest(penX, penY))
+    {
         GetUMLWars()->AddToRemove(static_cast<shared_ptr<Item>>(this));
     }
 }

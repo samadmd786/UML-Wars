@@ -19,10 +19,6 @@ private:
     /// boolean indicator of whether the pen has been launched
     bool mLaunched = false;
 
-    // if the pen has been launched, it must store has the direction it has been fired in
-    double mDirX = 0; ///< indicator for the X velocity direction
-    double mDirY = 0; ///< indicator for the Y velocity direction
-
 public:
     /// Default constructor (disabled)
     ItemPen() = delete;
@@ -34,12 +30,6 @@ public:
     void operator=(const ItemPen &) = delete;
 
     ItemPen(UMLWars* umlWars);
-
-    /**
-     * Setter for mLaunched
-     * @param launch - true if launched, false if not
-     */
-    void SetLaunch(bool launch) { mLaunched = launch; }
 
     void Launch();
     void Reset();
