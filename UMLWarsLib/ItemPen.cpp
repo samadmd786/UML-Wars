@@ -67,10 +67,27 @@ void ItemPen::Update(double elapsed)
 
         if (IsOffScreen())
         {
-            GetUMLWars()->ResetPen();
+            Reset();
         }
 
     }
 }
 
+/**
+ * Resets the pen's location to Harold's hand
+ */
+void ItemPen::Reset()
+{
+    mLaunched = !mLaunched;
+    // Fetch Harold, we'll need info about him
+    std::shared_ptr<ItemHarold> harold = GetUMLWars()->GetHarold();
+
+    // The pen should be rotated 45 degrees further than harold
+    SetRotation(harold->GetRotation()+pi/4.);
+
+    // Now, we need to get the position of Harold's hand and use it to set the pen location
+    SetX(offsetRadial*cos(harold->GetRotation()+offsetAngular));
+    SetY(harold->GetY() + offsetRadial*sin(harold->GetRotation()+offsetAngular));
+
+}
 

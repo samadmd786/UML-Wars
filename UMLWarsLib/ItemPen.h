@@ -42,6 +42,7 @@ public:
     void SetLaunch(bool launch) { mLaunched = launch; }
 
     void Launch();
+    void Reset();
 
     virtual void Update(double elapsed) override;
 

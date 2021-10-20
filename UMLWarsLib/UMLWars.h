@@ -39,7 +39,6 @@ private:
 
     /// Harold Pointer
     std::shared_ptr<ItemHarold> mHarold;
-    std::shared_ptr<ItemBox> mItemBox;
 
     /// Pointer for most recently added pen object
     std::shared_ptr<ItemPen> mPen;

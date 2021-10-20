@@ -121,7 +121,6 @@ bool UMLWars::LaunchPen()
 {
     if (mPen) {
         mPen->Launch();
-        //mPen = nullptr;
         return true;
     }
     return false;
@@ -133,10 +132,7 @@ bool UMLWars::LaunchPen()
  */
 void UMLWars::ResetPen()
 {
-    mPen->SetX(29);
-    mPen->SetY(846);
-    mPen->SetLaunch(false);
-
+    mPen->Reset();
 }
 
 void UMLWars::DeleteBox()
