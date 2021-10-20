@@ -109,7 +109,7 @@ public:
 
     void Remove(std::shared_ptr<Item> item);
 
-    bool LaunchPen();
+    void LaunchPen();
 
     void ResetPen();
 

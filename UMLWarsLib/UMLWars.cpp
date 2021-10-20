@@ -117,13 +117,12 @@ void UMLWars::Update(double elapsed)
  * Launches the pen Harold is holding, if one exists.
  * @return boolean indicator of whether a pen was launched
  */
-bool UMLWars::LaunchPen()
+void UMLWars::LaunchPen()
 {
-    if (mPen) {
+    if (mPen)
+    {
         mPen->Launch();
-        return true;
     }
-    return false;
 }
 
 /**
@@ -138,7 +137,8 @@ void UMLWars::ResetPen()
 void UMLWars::DeleteBox()
 {
 
-    for (auto item: mToRemove) {
+    for (auto item: mToRemove)
+    {
         Remove(item);
     }
 
