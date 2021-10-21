@@ -30,6 +30,9 @@ private:
     /// Speed for the item
     double mSpeed = 0;
 
+    /// Unique ID
+    long mID = 0;
+
 public:
     /// Default constructor (disabled)
     Item() = delete;
@@ -87,6 +90,18 @@ public:
      * @param speed the new speed
      */
     void SetSpeed(double speed) { mSpeed = speed; }
+
+    /**
+     * Getter for the id of the item
+     * @return Item id
+     */
+    long GetID() { return mID; }
+
+    /**
+     * Sets the ID of the item
+     * @param id the new ID
+     */
+    void SetID(long id) { mID = id; }
 
     /**
     * Get the pointer to the UML War game object

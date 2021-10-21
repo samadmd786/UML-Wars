@@ -169,9 +169,7 @@ void ItemBox::Update(double elapsed)
         if(hitPen) {
             mError = true;
         }
-        // TODO: Fix this box removal
-//        auto bar = make_shared<Item>(this);
-//        GetUMLWars()->AddToRemove(bar);
+        GetUMLWars()->AddToRemove(this->GetID());
     }
 }
 

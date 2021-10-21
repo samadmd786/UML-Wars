@@ -25,7 +25,9 @@ const static int Height = 1000;
  */
 void UMLWars::Add(std::shared_ptr<Item> item)
 {
+    item->SetID(mLastID);
     mItems.push_back(item);
+    mLastID++;
 }
 
 /**
@@ -91,7 +93,7 @@ void UMLWars::Update(double elapsed)
         item->Update(elapsed);
 
     }
-    if (!mToRemove.empty()) {
+    if (mItemToRemove >= 0) {
         DeleteBox();
     }
 
@@ -119,8 +121,14 @@ void UMLWars::ResetPen()
 
 void UMLWars::DeleteBox()
 {
-    for (auto item: mToRemove) {
-        Remove(item);
+    if(mItemToRemove >= 0) {
+        for (auto item : mItems) {
+            if (item->GetID() == mItemToRemove){
+                Remove(item);
+                break;
+            }
+        }
+        mItemToRemove = -1;
     }
 }
 
@@ -132,9 +140,9 @@ UMLWars::UMLWars()
  * Add an item to the remove vector
  * @param item - New item to add
  */
-void UMLWars::AddToRemove(std::shared_ptr<Item> item)
+void UMLWars::AddToRemove(long id)
 {
-    mToRemove.push_back(item);
+    mItemToRemove = id;
     ResetPen();
 }
 

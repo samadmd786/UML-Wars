@@ -27,6 +27,7 @@ private:
     double mScale;   ///< scale for virtual pixel conversion
     double mXOffset; ///< X offset for virtual pixel conversion
     double mYOffset; ///< Y offset for virtual pixel conversion
+    long mLastID = 0; ///< Last ID of the item
 
     // mouse location information
     double mMouseX = 0; ///< x coordinate of the mouse in virtual pixels
@@ -50,8 +51,8 @@ private:
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
-    /// Vector of items to be removed
-    std::vector<std::shared_ptr<Item>> mToRemove;
+    /// Item to be removed
+    long mItemToRemove = -1;
 
 public:
     UMLWars();
@@ -121,7 +122,7 @@ public:
 
     void Add(std::shared_ptr<Item> item);
 
-    void AddToRemove(std::shared_ptr<Item> item);
+    void AddToRemove(long id);
 
     void Remove(std::shared_ptr<Item> item);
 
