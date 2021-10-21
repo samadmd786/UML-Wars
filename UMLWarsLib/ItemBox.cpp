@@ -26,6 +26,7 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
 
     mClassName = xml.GetClassName(good).GetName();
     mAttributes = xml.GetAttributes(good);
+    mOperations = xml.GetOperations(good);
 
     if (random>=0) {
         mDirection = -1;
@@ -72,22 +73,44 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         }
     }
 
+    for (auto operation: mOperations) {
+        double width, height;
+        graphics->GetTextExtent(operation.GetName(), &width, &height);
+        /// Set wid height to maximums
+        if (width>=wid) {
+            wid = width;
+        }
+        if (height>=hit) {
+            hit = height;
+        }
+    }
+
     /// Rectangle setup
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size()+2));
+    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() +2));
     graphics->DrawText(mClassName, GetX(), GetY());
     graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
 
     int i = 1;
+    int j = 0;
+
     for (auto attribute: mAttributes) {
         graphics->DrawText(attribute.GetName(), GetX(), GetY()+hit*i);
         i++;
     }
 
+    if (mOperations.size() != 0) {
+        graphics->StrokeLine(GetX(), GetY()+hit*i, GetX()+wid, GetY()+hit*i);
+        for (auto operation: mOperations) {
+            graphics->DrawText(operation.GetName(), GetX(), GetY()+hit*i+hit*j);
+            j++;
+        }
+    }
+
     mWidth = wid;
-    mHeight = hit*(mAttributes.size()+2);
+    mHeight = hit*(mAttributes.size() + mOperations.size() +2);
 }
 
 /**

@@ -38,7 +38,7 @@ ItemPen::ItemPen(UMLWars *umlWars) : GraphicsItem(umlWars, PenImageName)
 void ItemPen::Launch()
 {
     mLaunched = true;
-    SetSpeed(10.);
+    SetSpeed(20.);
 }
 /**
  * Handle updates for animation

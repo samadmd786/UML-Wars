@@ -77,7 +77,7 @@ ElementHolder LoadXML::GetClassName(bool good) {
 /**
  * Get Random Attributes
  * @param good, defaults to true
- * @return element ElementHolder item with the good/bad class
+ * @return element ElementHolder item with the good/bad attributes
 */
 std::vector<ElementHolder> LoadXML::GetAttributes(bool good) {
     std::random_device rd;
@@ -106,4 +106,38 @@ std::vector<ElementHolder> LoadXML::GetAttributes(bool good) {
     attrs.push_back(mBadAttributes[0]);
     std::shuffle(attrs.begin(), attrs.end(), rand);
     return attrs;
+}
+
+/**
+ * Get Random Attributes
+ * @param good, defaults to true
+ * @return element ElementHolder item with the good/bad attributes
+*/
+std::vector<ElementHolder> LoadXML::GetOperations(bool good) {
+    std::random_device rd;
+    std::mt19937 rand(rd());
+
+    std::shuffle(mOperations.begin(), mOperations.end(), rand);
+    std::shuffle(mBadOperations.begin(), mBadOperations.end(), rand);
+    std::vector<ElementHolder> operations;
+
+    if(good) {
+        std::uniform_int_distribution<int> distribution(0,3);
+        int limit = distribution(rand);
+        for (size_t i = 0; i < limit; ++i)
+        {
+            operations.push_back(mOperations[i]);
+        }
+        return operations;
+    }
+
+    std::uniform_int_distribution<int> distribution(0,2);
+    int limit = distribution(rand);
+    for (size_t i = 0; i < limit; ++i)
+    {
+        operations.push_back(mOperations[i]);
+    }
+    operations.push_back(mBadOperations[0]);
+    std::shuffle(operations.begin(), operations.end(), rand);
+    return operations;
 }

@@ -38,6 +38,8 @@ public:
     ElementHolder GetClassName(bool good = true);
 
     std::vector<ElementHolder> GetAttributes(bool good = true);
+
+    std::vector<ElementHolder> GetOperations(bool good = true);
 };
 
 

@@ -19,6 +19,7 @@ private:
     double mYDir = 0;
     double mDirection = 1;
     std::vector<ElementHolder> mAttributes;
+    std::vector<ElementHolder> mOperations;
     wxString mClassName;
     double mHeight = 0;
     double mWidth = 0;
