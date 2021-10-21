@@ -15,15 +15,17 @@ using namespace std;
  * Constructor
  * @param umlwars UMLWars this block is a member of
  */
-ItemBox::ItemBox(UMLWars* umlWars, vector<ElementHolder> attributes, wxString className)
+ItemBox::ItemBox(UMLWars* umlWars, bool good)
         :Item(umlWars)
 {
     std::uniform_real_distribution<> distribution(-500, 500);
     double random = distribution(umlWars->GetRandom());
     SetX(random);
 
-    mClassName = className;
-    mAttributes = attributes;
+    LoadXML xml = umlWars->GetXML();
+
+    mClassName = xml.GetClassName(good).GetName();
+    mAttributes = xml.GetAttributes(good);
 
     if (random>=0) {
         mDirection = -1;

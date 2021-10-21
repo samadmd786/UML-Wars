@@ -34,7 +34,7 @@ public:
     /// Assignment operator
     void operator=(const ItemBox &) = delete;
 
-    ItemBox(UMLWars* umlWars, std::vector<ElementHolder> attributes, wxString className);
+    ItemBox(UMLWars* umlWars, bool good = true);
 
     virtual void Update(double elapsed) override;
 
