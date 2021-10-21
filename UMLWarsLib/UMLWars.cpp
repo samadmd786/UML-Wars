@@ -60,9 +60,7 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     wxBrush rectBrush(*wxWHITE);
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxWHITE_PEN);
-    graphics->DrawRectangle(-Width,0,Width*2,Height);
-
-
+    graphics->DrawRectangle(-Width, 0, Width*2, Height);
 
     for (auto item: mItems) {
         item->Draw(graphics);

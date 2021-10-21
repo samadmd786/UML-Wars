@@ -21,9 +21,11 @@ private:
     /// Stopwatch used to measure elapsed time
     wxStopWatch mStopWatch;
     /// last stopwatch time
-    long mTime = 0;
+    long long mTime = 0;
 
     double mCurrentSpeed = 1;
+
+    long long mLastBox = 0;
 
     // private functions
     void OnPaint(wxPaintEvent& event);

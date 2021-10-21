@@ -23,6 +23,7 @@ private:
     wxString mClassName;
     double mHeight = 0;
     double mWidth = 0;
+    bool mGood = true;
 
 public:
 

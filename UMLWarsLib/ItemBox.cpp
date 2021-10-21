@@ -24,9 +24,17 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
 
     LoadXML xml = umlWars->GetXML();
 
-    mClassName = xml.GetClassName(good).GetName();
-    mAttributes = xml.GetAttributes(good);
-    mOperations = xml.GetOperations(good);
+    if(good) {
+        mClassName = xml.GetClassName().GetName();
+        mAttributes = xml.GetAttributes();
+        mOperations = xml.GetOperations();
+    } else {
+        std::uniform_int_distribution<int> badDistribution(0,2);
+        int badType = badDistribution(umlWars->GetRandom());
+        mClassName = xml.GetClassName(badType != 0).GetName();
+        mAttributes = xml.GetAttributes(badType != 1);
+        mOperations = xml.GetOperations(badType != 2);
+    }
 
     if (random>=0) {
         mDirection = -1;
@@ -39,6 +47,8 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
     mYDir = yDistribution(umlWars->GetRandom());
 
     SetSpeed(1);
+
+    mGood = good;
 }
 
 /**
@@ -54,11 +64,17 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
             wxFONTFAMILY_SWISS,
             wxFONTSTYLE_NORMAL,
             wxFONTWEIGHT_NORMAL);
-    graphics->SetFont(font, wxColour(0, 0, 0));
+    wxFont boldFont(wxSize(0, 20),
+            wxFONTFAMILY_SWISS,
+            wxFONTSTYLE_NORMAL,
+            wxFONTWEIGHT_BOLD);
+    graphics->SetFont(boldFont, wxColour(0, 0, 0));
 
     /// Initial width and height according to the class name
-    double wid, hit;
+    double wid, hit, classWidth;
     graphics->GetTextExtent(mClassName, &wid, &hit);
+
+    classWidth = wid;
 
     for (auto attribute: mAttributes) {
         /// Initial width and height according to the class name
@@ -89,10 +105,10 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() +2));
-    graphics->DrawText(mClassName, GetX(), GetY());
+    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() + 2));
+    graphics->DrawText(mClassName, GetX() + (wid - classWidth) / 2., GetY());
     graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
-
+    graphics->SetFont(font, wxColour(0, 0, 0));
     int i = 1;
     int j = 0;
 
@@ -101,7 +117,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         i++;
     }
 
-    if (mOperations.size() != 0) {
+    if (!mOperations.empty()) {
         graphics->StrokeLine(GetX(), GetY()+hit*i, GetX()+wid, GetY()+hit*i);
         for (auto operation: mOperations) {
             graphics->DrawText(operation.GetName(), GetX(), GetY()+hit*i+hit*j);
@@ -110,7 +126,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     }
 
     mWidth = wid;
-    mHeight = hit*(mAttributes.size() + mOperations.size() +2);
+    mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
 }
 
 /**
