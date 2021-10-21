@@ -5,9 +5,6 @@
 
 #include "pch.h"
 #include "UMLWarsView.h"
-#include "ItemHarold.h"
-#include "ItemBox.h"
-#include "ItemPen.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <memory>
@@ -18,7 +15,7 @@ using namespace std;
 /// Frame duration in milliseconds
 const int FrameDuration = 25;
 
-const int emission = 1;
+const int emission = 2;
 
 /**
  * Constructor
@@ -107,13 +104,15 @@ void UMLWarsView::OnLeftDown(wxMouseEvent& event)
  */
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
-    if ((mStopWatch.Time() - mLastBox) > 2000) {
+    if ((mStopWatch.Time() - mLastBox) > 1000*emission)
+    {
         auto Box = make_shared<ItemBox>(&mUMLWars);
         Box->SetSpeed(mCurrentSpeed);
         mUMLWars.Add(Box);
         mLastBox = mStopWatch.Time();
     }
-    if (mStopWatch.Time()%10000<=30) {
+    if (mStopWatch.Time()%10000<=50)
+    {
         mCurrentSpeed += 1;
     }
     Refresh();

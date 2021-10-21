@@ -79,7 +79,7 @@ void ItemPen::Update(double elapsed)
  */
 void ItemPen::Reset()
 {
-    mLaunched = !mLaunched;
+    mLaunched = false;
     // Fetch Harold, we'll need info about him
     std::shared_ptr<ItemHarold> harold = GetUMLWars()->GetHarold();
 
