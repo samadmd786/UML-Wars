@@ -60,11 +60,18 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     wxBrush rectBrush(*wxWHITE);
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxWHITE_PEN);
-    graphics->DrawRectangle(-Width/2., 0, Width, Height);
+    graphics->DrawRectangle(-Width,0,Width*2,Height);
+
+
 
     for (auto item: mItems) {
         item->Draw(graphics);
     }
+    wxBrush rectBrushBlack(*wxBLACK);
+    graphics->SetBrush(rectBrushBlack);
+    graphics->SetPen(*wxBLACK_PEN);
+    graphics->DrawRectangle(-Width, 0, Width/2.+Width/8., Height);
+    graphics->DrawRectangle(Width/2., 0, Width/2., Height);
 
 
     //
@@ -119,8 +126,7 @@ void UMLWars::Update(double elapsed)
  */
 void UMLWars::LaunchPen()
 {
-    if (mPen)
-    {
+    if (mPen) {
         mPen->Launch();
     }
 }
@@ -137,8 +143,7 @@ void UMLWars::ResetPen()
 void UMLWars::DeleteBox()
 {
 
-    for (auto item: mToRemove)
-    {
+    for (auto item: mToRemove) {
         Remove(item);
     }
 

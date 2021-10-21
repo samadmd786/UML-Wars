@@ -12,14 +12,13 @@
 
 class UMLWars;
 
-
 /**
  * Base class for any item in our UML War game
  */
 class Item {
 private:
     /// The UML War game this item is contained in
-    UMLWars *mUMLWars;
+    UMLWars* mUMLWars;
 
     // Item location in the UMLWars window
     double mX = 0;      ///< X location for the center of the item in virtual pixels
@@ -36,10 +35,10 @@ public:
     Item() = delete;
 
     /// Copy constructor (disabled)
-    Item(const Item &) = delete;
+    Item(const Item&) = delete;
 
     /// Assignment operator
-    void operator=(const Item &) = delete;
+    void operator=(const Item&) = delete;
 
     /**
     * The X location of the item
@@ -95,7 +94,6 @@ public:
     */
     UMLWars* GetUMLWars() { return mUMLWars; }
 
-
     virtual void Draw(wxGraphicsContext* graphics);
 
     virtual bool HitTest(int x, int y);
@@ -103,7 +101,7 @@ public:
     /**
     * Handle updates for animation
     */
-    virtual void Update(double elapsed) {}
+    virtual void Update(double elapsed) { }
 
     bool IsOffScreen();
 

@@ -2,6 +2,7 @@
  * @file LoadXML.cpp
  * @author Aesha Ray
  */
+#include "pch.h"
 #include <random>
 #include "LoadXML.h"
 

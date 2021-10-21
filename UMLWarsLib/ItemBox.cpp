@@ -3,6 +3,7 @@
  * @author hemke
  */
 
+#include "pch.h"
 #include "ItemBox.h"
 #include <memory>
 #include <random>
@@ -56,8 +57,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     double wid, hit;
     graphics->GetTextExtent(mClassName, &wid, &hit);
 
-    for (auto attribute: mAttributes)
-    {
+    for (auto attribute: mAttributes) {
         /// Initial width and height according to the class name
         double width, height;
         graphics->GetTextExtent(attribute.GetName(), &width, &height);
@@ -89,7 +89,8 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
 }
 
 /**
- * Updates Box
+* Handle updates for animation
+* @param elapsed The time since the last update
 */
 void ItemBox::Update(double elapsed)
 {
@@ -97,12 +98,18 @@ void ItemBox::Update(double elapsed)
     SetY(GetY()+(GetSpeed()*mYDir));
     double penX = GetUMLWars()->GetPen()->GetX();
     double penY = GetUMLWars()->GetPen()->GetY();
-    if (IsOffScreen() || HitTest(penX, penY))
-    {
+    if (IsOffScreen() || HitTest(penX, penY)) {
         GetUMLWars()->AddToRemove(static_cast<shared_ptr<Item>>(this));
     }
 }
 
+/**
+* Test an x,y click location to see if it clicked
+* on some item in the aquarium
+* @param x X location in pixels
+* @param y Y location in pixels
+* @returns Pointer to item we clicked on or nullptr if none
+*/
 bool ItemBox::HitTest(int x, int y)
 {
 

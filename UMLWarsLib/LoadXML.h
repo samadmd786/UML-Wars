@@ -1,6 +1,7 @@
-//
-// Created by Aesha Ray on 10/18/21.
-//
+/**
+ * @file LoadXML.h
+ * @author Aesha Ray
+ */
 
 #ifndef UMLWARS_LOADXML_H
 #define UMLWARS_LOADXML_H

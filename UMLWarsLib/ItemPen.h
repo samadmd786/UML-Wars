@@ -13,7 +13,7 @@
 /**
  * Class for ItemPen in UML Wars game
  */
-class ItemPen : public GraphicsItem{
+class ItemPen : public GraphicsItem {
 private:
 
     /// boolean indicator of whether the pen has been launched
@@ -24,14 +24,15 @@ public:
     ItemPen() = delete;
 
     /// Copy constructor (disabled)
-    ItemPen(const ItemPen &) = delete;
+    ItemPen(const ItemPen&) = delete;
 
     /// Assignment operator
-    void operator=(const ItemPen &) = delete;
+    void operator=(const ItemPen&) = delete;
 
     ItemPen(UMLWars* umlWars);
 
     void Launch();
+
     void Reset();
 
     virtual void Update(double elapsed) override;

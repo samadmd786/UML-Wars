@@ -83,6 +83,7 @@ bool Item::IsOffScreen()
     if (GetX()>rightOfScreen || GetX()<leftOfScreen || GetY()>bottomOfScreen || GetY()<topOfScreen) {
         return true;
     }
+
     return false;
 }
 
