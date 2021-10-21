@@ -85,5 +85,25 @@ std::vector<ElementHolder> LoadXML::GetAttributes(bool good) {
 
     std::shuffle(mAttributes.begin(), mAttributes.end(), rand);
     std::shuffle(mBadAttributes.begin(), mBadAttributes.end(), rand);
-    return good ? mAttributes : mBadAttributes;
+    std::vector<ElementHolder> attrs;
+
+    if(good) {
+        std::uniform_int_distribution<int> distribution(0,3);
+        int limit = distribution(rand);
+        for (size_t i = 0; i < limit; ++i)
+        {
+            attrs.push_back(mAttributes[i]);
+        }
+        return attrs;
+    }
+
+    std::uniform_int_distribution<int> distribution(0,2);
+    int limit = distribution(rand);
+    for (size_t i = 0; i < limit; ++i)
+    {
+        attrs.push_back(mAttributes[i]);
+    }
+    attrs.push_back(mBadAttributes[0]);
+    std::shuffle(attrs.begin(), attrs.end(), rand);
+    return attrs;
 }
