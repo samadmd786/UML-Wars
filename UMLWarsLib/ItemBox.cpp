@@ -105,7 +105,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() +2));
+    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() + 2));
     graphics->DrawText(mClassName, GetX() + (wid - classWidth) / 2., GetY());
     graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
     graphics->SetFont(font, wxColour(0, 0, 0));
@@ -117,7 +117,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         i++;
     }
 
-    if (mOperations.size() != 0) {
+    if (!mOperations.empty()) {
         graphics->StrokeLine(GetX(), GetY()+hit*i, GetX()+wid, GetY()+hit*i);
         for (auto operation: mOperations) {
             graphics->DrawText(operation.GetName(), GetX(), GetY()+hit*i+hit*j);
@@ -126,7 +126,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     }
 
     mWidth = wid;
-    mHeight = hit*(mAttributes.size() + mOperations.size() +2);
+    mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
 }
 
 /**
