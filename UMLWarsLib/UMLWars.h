@@ -14,6 +14,7 @@
 #include "GraphicsItem.h"
 #include "ItemHarold.h"
 #include "ItemPen.h"
+#include "ScoreBoard.h"
 #include "LoadXML.h"
 #include "ItemBox.h"
 
@@ -42,6 +43,9 @@ private:
 
     /// Pointer for most recently added pen object
     std::shared_ptr<ItemPen> mPen;
+
+    /// Pointer for UML Wars scoreboard
+    std::shared_ptr<ScoreBoard> mScoreBoard;
 
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
@@ -92,16 +96,28 @@ public:
     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
 
     /**
-     * Setter for the most recent pen
+     * Setter for the pen
      * @param pen a pointer to the pen
      */
     void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
 
     /**
-     * Getter for the most recent pen
+     * Getter for the pen
      * @return a shared pointer to the pen
      */
     std::shared_ptr<ItemPen> GetPen() { return mPen; }
+
+    /**
+     * Setter for the scoreboard
+     * @param board a pointer to the scoreboard
+     */
+    void SetScoreBoard(std::shared_ptr<ScoreBoard> board) { mScoreBoard = board; }
+
+    /**
+     * Getter for the scoreboard
+     * @param board a pointer to the scoreboard
+     */
+     std::shared_ptr<ScoreBoard> GetScoreBoard() { return mScoreBoard; }
 
     void Add(std::shared_ptr<Item> item);
 

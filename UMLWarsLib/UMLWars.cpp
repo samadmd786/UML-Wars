@@ -67,39 +67,18 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     for (auto item: mItems) {
         item->Draw(graphics);
     }
+    GetScoreBoard()->Draw(graphics);
+
     wxBrush rectBrushBlack(*wxBLACK);
     graphics->SetBrush(rectBrushBlack);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(-Width, 0, Width/2.+Width/8., Height);
+    graphics->DrawRectangle(-Width, 0, Width/2., Height);
     graphics->DrawRectangle(Width/2., 0, Width/2., Height);
 
 
     //
     // Draw in virtual pixels on the graphics context
     //
-    // INSERT YOUR DRAWING CODE HERE
-    // Draw the scoreboard
-    wxFont font(wxSize(0, 45),
-            wxFONTFAMILY_SWISS,
-            wxFONTSTYLE_NORMAL,
-            wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font, wxColour(0, 139, 139));
-    graphics->DrawText(L"Correct", -300, 200);
-    graphics->DrawText(L"Missed", 0, 200);
-    graphics->DrawText(L"Unfair", 300, 200);
-
-    // Draw the score
-    int correctNum = 0;
-    int missedNum = 0;
-    int unfairNum = 0;
-    wxFont fontNum(wxSize(0, 100),
-            wxFONTFAMILY_SWISS,
-            wxFONTSTYLE_NORMAL,
-            wxFONTWEIGHT_BOLD);
-    graphics->SetFont(fontNum, wxColour(0, 139, 139));
-    graphics->DrawText(to_string(correctNum), -250, 50);
-    graphics->DrawText(to_string(missedNum), 50, 50);
-    graphics->DrawText(to_string(unfairNum), 350, 50);
 
     graphics->PopState();
 }

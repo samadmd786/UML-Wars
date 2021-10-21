@@ -8,6 +8,7 @@
 #include "ItemHarold.h"
 #include "ItemBox.h"
 #include "ItemPen.h"
+#include "ScoreBoard.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <memory>
@@ -36,6 +37,11 @@ UMLWarsView::UMLWarsView()
     Pen->SetY(846);
     mUMLWars.Add(Pen);
     mUMLWars.SetPen(Pen);
+
+    auto Board = make_shared<ScoreBoard>(&mUMLWars);
+    mUMLWars.Add(Board);
+    mUMLWars.SetScoreBoard(Board);
+
 }
 
 /**
