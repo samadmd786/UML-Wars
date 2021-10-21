@@ -8,6 +8,7 @@
 #include <memory>
 #include <random>
 #include "UMLWars.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -28,12 +29,21 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
         mClassName = xml.GetClassName().GetName();
         mAttributes = xml.GetAttributes();
         mOperations = xml.GetOperations();
+        mMsgString = "Unfair!";
     } else {
         std::uniform_int_distribution<int> badDistribution(0,2);
         int badType = badDistribution(umlWars->GetRandom());
-        mClassName = xml.GetClassName(badType != 0).GetName();
+        ElementHolder className = xml.GetClassName(badType != 0);
+        mClassName = className.GetName();
         mAttributes = xml.GetAttributes(badType != 1);
         mOperations = xml.GetOperations(badType != 2);
+        mMsgString = className.GetBad();
+        for (auto attr : mAttributes) {
+            mMsgString += attr.GetBad();
+        }
+        for (auto op : mOperations) {
+            mMsgString += op.GetBad();
+        }
     }
 
     if (random>=0) {
@@ -127,6 +137,21 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
 
     mWidth = wid;
     mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
+
+    if (mError) {
+        wxFont errorFont(wxSize(0, 50),
+                wxFONTFAMILY_SWISS,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+        double msgWidth, msgHeight;
+        graphics->GetTextExtent(mMsgString, &msgWidth, &msgHeight);
+        if (!mGood) {
+            graphics->SetFont(errorFont, wxColour(0, 176, 80));
+        } else {
+            graphics->SetFont(errorFont, wxColour(192, 0, 0));
+        }
+        graphics->DrawText(mMsgString, GetX() + (msgWidth) / 2., GetY() + (mHeight - msgHeight) / 2.);
+    }
 }
 
 /**
@@ -139,8 +164,14 @@ void ItemBox::Update(double elapsed)
     SetY(GetY()+(GetSpeed()*mYDir));
     double penX = GetUMLWars()->GetPen()->GetX();
     double penY = GetUMLWars()->GetPen()->GetY();
-    if (IsOffScreen() || HitTest(penX, penY)) {
-        GetUMLWars()->AddToRemove(static_cast<shared_ptr<Item>>(this));
+    bool hitPen = HitTest(penX, penY);
+    if (IsOffScreen() || hitPen) {
+        if(hitPen) {
+            mError = true;
+        }
+        // TODO: Fix this box removal
+//        auto bar = make_shared<Item>(this);
+//        GetUMLWars()->AddToRemove(bar);
     }
 }
 

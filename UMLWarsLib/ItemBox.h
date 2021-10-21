@@ -24,7 +24,8 @@ private:
     double mHeight = 0;
     double mWidth = 0;
     bool mGood = true;
-
+    bool mError = false;
+    wxString mMsgString;
 public:
 
     /// Default constructor (disabled)

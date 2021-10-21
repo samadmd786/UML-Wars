@@ -119,11 +119,9 @@ void UMLWars::ResetPen()
 
 void UMLWars::DeleteBox()
 {
-
     for (auto item: mToRemove) {
         Remove(item);
     }
-
 }
 
 UMLWars::UMLWars()
