@@ -112,11 +112,14 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         }
     }
 
+    mWidth = wid;
+    mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
+
     /// Rectangle setup
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() + 2));
+    graphics->DrawRectangle(GetX(), GetY(), mWidth, mHeight);
     graphics->DrawText(mClassName, GetX() + (wid - classWidth) / 2., GetY());
     graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
     graphics->SetFont(font, wxColour(0, 0, 0));
@@ -136,9 +139,6 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         }
     }
 
-    mWidth = wid;
-    mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
-
     if (mError) {
         wxFont errorFont(wxSize(0, 50),
                 wxFONTFAMILY_SWISS,
@@ -151,7 +151,7 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         } else {
             graphics->SetFont(errorFont, wxColour(192, 0, 0));
         }
-        graphics->DrawText(mMsgString, GetX() + (msgWidth) / 2., GetY() + (mHeight - msgHeight) / 2.);
+        graphics->DrawText(mMsgString, (GetX() + (mWidth / 2)) - (msgWidth), GetY() + (mHeight - msgHeight) / 2.);
     }
 }
 
@@ -199,24 +199,17 @@ void ItemBox::Update(double elapsed)
 */
 bool ItemBox::HitTest(int x, int y)
 {
-
-    double wid = GetWidth();
-    double hit = GetHeight();
-
     // Make x and y relative to the top-left corner of the bitmap image
     // Subtracting the center makes x, y relative to the image center
     // Adding half the size makes x, y relative to the image top corner
-    double testX = x-GetX()+wid/2;
-    double testY = y-GetY()+hit/2;
+    double testX = x-GetX()+mWidth/2;
+    double testY = y-GetY()+mHeight/2;
 
     // Test to see if x, y are in the image
-    if (testX<0 || testY<0 || testX>=wid || testY>=hit) {
+    if (testX<0 || testY<0 || testX>=mWidth*2 || testY>=mHeight) {
         // We are outside the image
         return false;
     }
 
-    // Test to see if x, y are in the drawn part of the image
-    // If the location is transparent, we are not in the drawn
-    // part of the image
     return true;
 }
