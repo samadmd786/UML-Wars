@@ -42,9 +42,6 @@ private:
     /// Harold Pointer
     std::shared_ptr<ItemHarold> mHarold;
 
-    /// Pointer for UML Wars scoreboard
-    std::shared_ptr<ScoreBoard> mScoreBoard;
-
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
@@ -100,16 +97,10 @@ public:
     std::shared_ptr<Item> GetPen() { return mItems[1]; }
 
     /**
-     * Setter for the scoreboard
-     * @param board a pointer to the scoreboard
-     */
-    void SetScoreBoard(std::shared_ptr<ScoreBoard> board) { mScoreBoard = board; }
-
-    /**
      * Getter for the scoreboard
      * @param board a pointer to the scoreboard
      */
-     std::shared_ptr<ScoreBoard> GetScoreBoard() { return mScoreBoard; }
+     std::shared_ptr<Item> GetScoreBoard() { return mItems[2]; }
 
     void Add(std::shared_ptr<Item> item);
 

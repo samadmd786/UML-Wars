@@ -38,8 +38,6 @@ UMLWarsView::UMLWarsView()
 
     auto Board = make_shared<ScoreBoard>(&mUMLWars);
     mUMLWars.Add(Board);
-    mUMLWars.SetScoreBoard(Board);
-
 }
 
 /**
