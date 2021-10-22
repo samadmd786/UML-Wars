@@ -14,7 +14,7 @@
 enum IDs {
     //Member IDs
     IDM_STANDARD = wxID_HIGHEST + 1,
-    IDM_CUSTOM
+    IDM_CUSTOM = wxID_HIGHEST + 2
 
 
 };
