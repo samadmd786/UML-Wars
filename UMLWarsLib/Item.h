@@ -122,6 +122,16 @@ public:
 
     virtual ~Item();
 
+    /**
+     * Handles launch of an item
+     */
+    virtual void Launch() {};
+
+    /**
+     * Handles launch of an item
+     */
+    virtual void Reset() {};
+
 protected:
     Item(UMLWars* umlWars);
 

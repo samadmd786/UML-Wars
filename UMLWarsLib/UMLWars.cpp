@@ -105,8 +105,8 @@ void UMLWars::Update(double elapsed)
  */
 void UMLWars::LaunchPen()
 {
-    if (mPen) {
-        mPen->Launch();
+    if (GetPen()) {
+        GetPen()->Launch();
     }
 }
 
@@ -116,7 +116,7 @@ void UMLWars::LaunchPen()
  */
 void UMLWars::ResetPen()
 {
-    mPen->Reset();
+    GetPen()->Reset();
 }
 
 void UMLWars::DeleteBox()

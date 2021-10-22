@@ -42,9 +42,6 @@ private:
     /// Harold Pointer
     std::shared_ptr<ItemHarold> mHarold;
 
-    /// Pointer for most recently added pen object
-    std::shared_ptr<ItemPen> mPen;
-
     /// Pointer for UML Wars scoreboard
     std::shared_ptr<ScoreBoard> mScoreBoard;
 
@@ -97,16 +94,10 @@ public:
     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
 
     /**
-     * Setter for the pen
-     * @param pen a pointer to the pen
-     */
-    void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
-
-    /**
      * Getter for the pen
      * @return a shared pointer to the pen
      */
-    std::shared_ptr<ItemPen> GetPen() { return mPen; }
+    std::shared_ptr<Item> GetPen() { return mItems[1]; }
 
     /**
      * Setter for the scoreboard
