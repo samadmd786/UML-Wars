@@ -68,6 +68,7 @@ void MainFrame::OnExit(wxCommandEvent& event)
 
 /**
  * Application about box menu handler
+ * @param event
  */
 void MainFrame::OnAbout(wxCommandEvent& event)
 {
@@ -79,6 +80,7 @@ void MainFrame::OnAbout(wxCommandEvent& event)
 
 /**
  * Application about box menu handler
+ * @param event
  */
 void MainFrame::OnVariantStandard(wxCommandEvent& event)
 {
@@ -87,6 +89,7 @@ void MainFrame::OnVariantStandard(wxCommandEvent& event)
 
 /**
  * Application about box menu handler
+ * @param event
  */
 void MainFrame::OnVariantCustom(wxCommandEvent& event)
 {

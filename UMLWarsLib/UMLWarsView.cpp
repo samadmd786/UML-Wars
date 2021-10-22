@@ -36,6 +36,11 @@ UMLWarsView::UMLWarsView()
     Pen->SetY(846);
     mUMLWars.Add(Pen);
     mUMLWars.SetPen(Pen);
+
+    auto Board = make_shared<ScoreBoard>(&mUMLWars);
+    mUMLWars.Add(Board);
+    mUMLWars.SetScoreBoard(Board);
+
 }
 
 /**
@@ -107,13 +112,15 @@ void UMLWarsView::OnLeftDown(wxMouseEvent& event)
  */
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
-    if (mStopWatch.Time()%2000>=0 && mStopWatch.Time()%2000<=20) {
-        LoadXML xml = mUMLWars.GetXML();
-        auto Box = make_shared<ItemBox>(&mUMLWars, xml.GetAttributes(), xml.GetClassName().GetName());
+    if ((mStopWatch.Time() - mLastBox) > 2000) {
+        std::uniform_int_distribution<int> badDistribution(0,10);
+        int goodOrBad = badDistribution(mUMLWars.GetRandom());
+        auto Box = make_shared<ItemBox>(&mUMLWars, goodOrBad % 2);
         Box->SetSpeed(mCurrentSpeed);
         mUMLWars.Add(Box);
+        mLastBox = mStopWatch.Time();
     }
-    if (mStopWatch.Time()%10000>=0 && mStopWatch.Time()%10000<=30) {
+    if (mStopWatch.Time()%10000<=30) {
         mCurrentSpeed += 1;
     }
     Refresh();

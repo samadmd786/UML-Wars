@@ -12,14 +12,13 @@
 
 class UMLWars;
 
-
 /**
  * Base class for any item in our UML War game
  */
 class Item {
 private:
     /// The UML War game this item is contained in
-    UMLWars *mUMLWars;
+    UMLWars* mUMLWars;
 
     // Item location in the UMLWars window
     double mX = 0;      ///< X location for the center of the item in virtual pixels
@@ -31,15 +30,18 @@ private:
     /// Speed for the item
     double mSpeed = 0;
 
+    /// Unique ID
+    long mID = 0;
+
 public:
     /// Default constructor (disabled)
     Item() = delete;
 
     /// Copy constructor (disabled)
-    Item(const Item &) = delete;
+    Item(const Item&) = delete;
 
     /// Assignment operator
-    void operator=(const Item &) = delete;
+    void operator=(const Item&) = delete;
 
     /**
     * The X location of the item
@@ -90,11 +92,22 @@ public:
     void SetSpeed(double speed) { mSpeed = speed; }
 
     /**
+     * Getter for the id of the item
+     * @return Item id
+     */
+    long GetID() { return mID; }
+
+    /**
+     * Sets the ID of the item
+     * @param id the new ID
+     */
+    void SetID(long id) { mID = id; }
+
+    /**
     * Get the pointer to the UML War game object
     * @return Pointer to UML War game object
     */
     UMLWars* GetUMLWars() { return mUMLWars; }
-
 
     virtual void Draw(wxGraphicsContext* graphics);
 
@@ -103,7 +116,7 @@ public:
     /**
     * Handle updates for animation
     */
-    virtual void Update(double elapsed) {}
+    virtual void Update(double elapsed) { }
 
     bool IsOffScreen();
 

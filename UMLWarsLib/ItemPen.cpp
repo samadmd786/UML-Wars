@@ -38,12 +38,13 @@ ItemPen::ItemPen(UMLWars *umlWars) : GraphicsItem(umlWars, PenImageName)
 void ItemPen::Launch()
 {
     mLaunched = true;
-    SetSpeed(10.);
+    SetSpeed(20.);
 }
-
 /**
- * Updates Pen's position and rotation angle based on Harold and whether it has been launched
-*/
+ * Handle updates for animation
+ * @param elapsed The time since the last update
+ */
+
 void ItemPen::Update(double elapsed)
 {
     if (!mLaunched)

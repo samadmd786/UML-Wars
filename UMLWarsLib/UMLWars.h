@@ -14,6 +14,7 @@
 #include "GraphicsItem.h"
 #include "ItemHarold.h"
 #include "ItemPen.h"
+#include "ScoreBoard.h"
 #include "LoadXML.h"
 #include "ItemBox.h"
 
@@ -26,6 +27,7 @@ private:
     double mScale;   ///< scale for virtual pixel conversion
     double mXOffset; ///< X offset for virtual pixel conversion
     double mYOffset; ///< Y offset for virtual pixel conversion
+    long mLastID = 0; ///< Last ID of the item
 
     // mouse location information
     double mMouseX = 0; ///< x coordinate of the mouse in virtual pixels
@@ -43,11 +45,14 @@ private:
     /// Pointer for most recently added pen object
     std::shared_ptr<ItemPen> mPen;
 
+    /// Pointer for UML Wars scoreboard
+    std::shared_ptr<ScoreBoard> mScoreBoard;
+
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
-    /// Vector of items to be removed
-    std::vector<std::shared_ptr<Item>> mToRemove;
+    /// Item to be removed
+    long mItemToRemove = -1;
 
 public:
     UMLWars();
@@ -92,20 +97,32 @@ public:
     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
 
     /**
-     * Setter for the most recent pen
+     * Setter for the pen
      * @param pen a pointer to the pen
      */
     void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
 
     /**
-     * Getter for the most recent pen
+     * Getter for the pen
      * @return a shared pointer to the pen
      */
     std::shared_ptr<ItemPen> GetPen() { return mPen; }
 
+    /**
+     * Setter for the scoreboard
+     * @param board a pointer to the scoreboard
+     */
+    void SetScoreBoard(std::shared_ptr<ScoreBoard> board) { mScoreBoard = board; }
+
+    /**
+     * Getter for the scoreboard
+     * @param board a pointer to the scoreboard
+     */
+     std::shared_ptr<ScoreBoard> GetScoreBoard() { return mScoreBoard; }
+
     void Add(std::shared_ptr<Item> item);
 
-    void AddToRemove(std::shared_ptr<Item> item);
+    void AddToRemove(long id);
 
     void Remove(std::shared_ptr<Item> item);
 

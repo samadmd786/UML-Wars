@@ -19,10 +19,13 @@ private:
     double mYDir = 0;
     double mDirection = 1;
     std::vector<ElementHolder> mAttributes;
+    std::vector<ElementHolder> mOperations;
     wxString mClassName;
     double mHeight = 0;
     double mWidth = 0;
-
+    bool mGood = true;
+    bool mError = false;
+    wxString mMsgString;
 public:
 
     /// Default constructor (disabled)
@@ -34,7 +37,7 @@ public:
     /// Assignment operator
     void operator=(const ItemBox &) = delete;
 
-    ItemBox(UMLWars* umlWars, std::vector<ElementHolder> attributes, wxString className);
+    ItemBox(UMLWars* umlWars, bool good = true);
 
     virtual void Update(double elapsed) override;
 

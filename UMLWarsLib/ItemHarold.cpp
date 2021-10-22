@@ -18,7 +18,7 @@ const double pi = 3.1415;
 
 /**
  * Constructor
- * @param umlwars Aquarium this fish is a member of
+ * @param umlwars game this item is a member of
  */
 ItemHarold::ItemHarold(UMLWars *umlWars) : GraphicsItem(umlWars, HaroldImageName)
 {
@@ -27,7 +27,9 @@ ItemHarold::ItemHarold(UMLWars *umlWars) : GraphicsItem(umlWars, HaroldImageName
 
 /**
  * Updates Harold's Rotation Angle based on the mouse coordinates (and his)
+ * @param elapsed The time since the last update
 */
+
 void ItemHarold::Update(double elapsed)
 {
     double mouseX = GetUMLWars()->GetMouseX();
