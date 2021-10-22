@@ -171,8 +171,16 @@ void ItemBox::Update(double elapsed)
             if(hitPen) {
                 mError = true;
                 GetUMLWars()->ResetPen();
+                if(!mGood) {
+                    GetUMLWars()->GetScoreBoard()->IncCorrect();
+                } else {
+                    GetUMLWars()->GetScoreBoard()->IncUnfair();
+                }
             } else {
                 GetUMLWars()->AddToRemove(this->GetID());
+                if(!mGood) {
+                    GetUMLWars()->GetScoreBoard()->IncMissed();
+                }
             }
         }
         mDestroyTime += elapsed;
