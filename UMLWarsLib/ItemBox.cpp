@@ -9,6 +9,7 @@
 #include <random>
 #include "UMLWars.h"
 #include "Item.h"
+#include <wx/utils.h>
 
 using namespace std;
 
@@ -160,17 +161,25 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
 */
 void ItemBox::Update(double elapsed)
 {
-    SetX(GetX()+(GetSpeed()*mDirection*mXDir));
-    SetY(GetY()+(GetSpeed()*mYDir));
-    double penX = GetUMLWars()->GetPen()->GetX();
-    double penY = GetUMLWars()->GetPen()->GetY();
-    bool hitPen = HitTest(penX, penY);
-    if (IsOffScreen() || hitPen) {
-        if(hitPen) {
-            mError = true;
+    if(!mError) {
+        SetX(GetX()+(GetSpeed()*mDirection*mXDir));
+        SetY(GetY()+(GetSpeed()*mYDir));
+        double penX = GetUMLWars()->GetPen()->GetX();
+        double penY = GetUMLWars()->GetPen()->GetY();
+        bool hitPen = HitTest(penX, penY);
+        if (IsOffScreen() || hitPen) {
+            if(hitPen) {
+                mError = true;
+                GetUMLWars()->ResetPen();
+            } else {
+                GetUMLWars()->AddToRemove(this->GetID());
+            }
         }
+        mDestroyTime += elapsed;
+    } else if (mError && mCurrentTime - mDestroyTime > 2) {
         GetUMLWars()->AddToRemove(this->GetID());
     }
+    mCurrentTime += elapsed;
 }
 
 /**

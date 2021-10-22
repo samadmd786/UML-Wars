@@ -26,6 +26,9 @@ private:
     bool mGood = true;
     bool mError = false;
     wxString mMsgString;
+    double mDestroyTime = 0;
+    double mCurrentTime = 0;
+
 public:
 
     /// Default constructor (disabled)

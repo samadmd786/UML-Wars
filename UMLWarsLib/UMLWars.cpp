@@ -143,7 +143,6 @@ UMLWars::UMLWars()
 void UMLWars::AddToRemove(long id)
 {
     mItemToRemove = id;
-    ResetPen();
 }
 
 void UMLWars::Remove(std::shared_ptr<Item> item)
