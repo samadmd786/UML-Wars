@@ -56,13 +56,22 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
-    //
-    // A rectangle for the virtual area we are drawing on
-    //
-    wxBrush rectBrush(*wxWHITE);
-    graphics->SetBrush(rectBrush);
-    graphics->SetPen(*wxWHITE_PEN);
-    graphics->DrawRectangle(-Width, 0, Width*2, Height);
+    if (mCustom) {
+
+//        if (mBackgroundBitmap.IsNull())
+//        {
+//            mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackground);
+//        }
+//        graphics->DrawBitmap(mBackgroundBitmap, -Width, 0, Width*2, Height);
+    } else {
+        //
+        // A rectangle for the virtual area we are drawing on
+        //
+        wxBrush rectBrush(*wxWHITE);
+        graphics->SetBrush(rectBrush);
+        graphics->SetPen(*wxWHITE_PEN);
+        graphics->DrawRectangle(-Width, 0, Width*2, Height);
+    }
 
     for (auto item: mItems) {
         item->Draw(graphics);
@@ -75,11 +84,6 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     graphics->DrawRectangle(-Width, 0, Width/2., Height);
     graphics->DrawRectangle(Width/2., 0, Width/2., Height);
 
-
-    //
-    // Draw in virtual pixels on the graphics context
-    //
-
     graphics->PopState();
 }
 
@@ -91,7 +95,6 @@ void UMLWars::Update(double elapsed)
 {
     for (auto item: mItems) {
         item->Update(elapsed);
-
     }
     if (mItemToRemove >= 0) {
         DeleteBox();
@@ -105,8 +108,8 @@ void UMLWars::Update(double elapsed)
  */
 void UMLWars::LaunchPen()
 {
-    if (mPen) {
-        mPen->Launch();
+    if (GetPen()) {
+        GetPen()->Launch();
     }
 }
 
@@ -116,7 +119,7 @@ void UMLWars::LaunchPen()
  */
 void UMLWars::ResetPen()
 {
-    mPen->Reset();
+    GetPen()->Reset();
 }
 
 void UMLWars::DeleteBox()
@@ -134,6 +137,8 @@ void UMLWars::DeleteBox()
 
 UMLWars::UMLWars()
 {
+    SetCustom(false);
+    mBackground = make_shared<wxImage>(L"images/harold.png");
 }
 
 /**

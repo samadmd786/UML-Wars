@@ -42,17 +42,20 @@ private:
     /// Harold Pointer
     std::shared_ptr<ItemHarold> mHarold;
 
-    /// Pointer for most recently added pen object
-    std::shared_ptr<ItemPen> mPen;
-
-    /// Pointer for UML Wars scoreboard
-    std::shared_ptr<ScoreBoard> mScoreBoard;
-
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
     /// Item to be removed
     long mItemToRemove = -1;
+
+    /// Custom
+    bool mCustom;
+
+    /// mBackground
+    std::shared_ptr<wxImage> mBackground;
+
+    /// Bitmap for the item in question
+    wxGraphicsBitmap mBackgroundBitmap;
 
 public:
     UMLWars();
@@ -90,6 +93,8 @@ public:
      */
     void SetHarold(std::shared_ptr<ItemHarold> harold) { mHarold = harold; }
 
+    void SetCustom(bool cus) { mCustom = cus; }
+
     /**
      * Getter for Harold
      * @return a shared pointer to harold
@@ -97,28 +102,16 @@ public:
     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
 
     /**
-     * Setter for the pen
-     * @param pen a pointer to the pen
-     */
-    void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
-
-    /**
      * Getter for the pen
      * @return a shared pointer to the pen
      */
-    std::shared_ptr<ItemPen> GetPen() { return mPen; }
-
-    /**
-     * Setter for the scoreboard
-     * @param board a pointer to the scoreboard
-     */
-    void SetScoreBoard(std::shared_ptr<ScoreBoard> board) { mScoreBoard = board; }
+    std::shared_ptr<Item> GetPen() { return mItems[1]; }
 
     /**
      * Getter for the scoreboard
      * @param board a pointer to the scoreboard
      */
-     std::shared_ptr<ScoreBoard> GetScoreBoard() { return mScoreBoard; }
+     std::shared_ptr<Item> GetScoreBoard() { return mItems[2]; }
 
     void Add(std::shared_ptr<Item> item);
 

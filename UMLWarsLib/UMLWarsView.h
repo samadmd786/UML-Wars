@@ -25,6 +25,8 @@ private:
 
     double mCurrentSpeed = 1;
 
+    bool mCustom = false;
+
     long long mLastBox = 0;
 
     // private functions
@@ -37,6 +39,8 @@ public:
     void Initialize(wxFrame *parent);
 
     void OnTimer(wxTimerEvent& event);
+
+    void SetCustom(bool cus) { mUMLWars.SetCustom(cus); }
 };
 
 #endif //UMLWARS_UMLWARSVIEW_H

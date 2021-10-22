@@ -122,6 +122,31 @@ public:
 
     virtual ~Item();
 
+    /**
+     * Handles launch of an item
+     */
+    virtual void Launch() {};
+
+    /**
+     * Handles launch of an item
+     */
+    virtual void Reset() {};
+
+    /**
+     * Increments mUnfair by one
+     */
+    virtual void IncUnfair() { }
+
+    /**
+     * Increments mMissed by one
+     */
+    virtual void IncMissed() { }
+
+    /**
+     * Increments mCorrect by one
+     */
+    virtual void IncCorrect() { }
+
 protected:
     Item(UMLWars* umlWars);
 
