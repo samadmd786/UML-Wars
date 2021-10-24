@@ -31,6 +31,11 @@ public:
 
     ItemPen(UMLWars* umlWars);
 
+    /**
+     * Getter for launch state
+     */
+     bool GetLaunch() { return mLaunched; }
+
     void Launch();
 
     void Reset();
