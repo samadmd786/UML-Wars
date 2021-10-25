@@ -2,8 +2,8 @@ project(Tests)
 
 set(TEST_FILES
     gtest_main.cpp
-    EmptyTest.cpp LoadTest.cpp ItemHaroldTest.cpp
-    ItemPenTest.cpp)
+    EmptyTest.cpp LoadTest.cpp
+    ItemPenTest.cpp  ItemHaroldTest.cpp)
 
 # Get Google Tests
 include(FetchContent)
