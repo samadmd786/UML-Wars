@@ -2,7 +2,7 @@ project(Tests)
 
 set(TEST_FILES
     gtest_main.cpp
-    EmptyTest.cpp LoadTest.cpp
+    EmptyTest.cpp LoadTest.cpp ItemHaroldTest.cpp
     ItemPenTest.cpp)
 
 # Get Google Tests

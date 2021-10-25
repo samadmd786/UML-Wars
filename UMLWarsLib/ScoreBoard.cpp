@@ -2,7 +2,7 @@
  * @file ScoreBoard.cpp
  * @author Josh Erno
  */
-
+#include "pch.h"
 #include "ScoreBoard.h"
 
 using namespace std;
