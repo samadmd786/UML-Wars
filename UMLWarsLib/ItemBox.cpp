@@ -178,7 +178,7 @@ void ItemBox::Update(double elapsed)
                 }
             } else {
                 GetUMLWars()->AddToRemove(this->GetID());
-                if(!mGood) {
+                if(!mGood || IsOffScreen()) {
                     GetUMLWars()->GetScoreBoard()->IncMissed();
                 }
             }

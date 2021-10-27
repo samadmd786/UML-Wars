@@ -14,7 +14,7 @@ using namespace std;
 const int rightOfScreen = 625;
 
 /// constant for x-value at left of the screen
-const int leftOfScreen = -625;
+const int leftOfScreen = -1000;
 
 /// constant for y-value at top of screen
 const int topOfScreen = 0;
