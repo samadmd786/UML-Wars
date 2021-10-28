@@ -28,6 +28,8 @@ public:
     void OnVariantStandard(wxCommandEvent& event);
 
     void OnVariantCustom(wxCommandEvent& event);
+
+    void OnClose(wxCloseEvent& event);
 };
 
 #endif //UMLWARS_MAINFRAME_H

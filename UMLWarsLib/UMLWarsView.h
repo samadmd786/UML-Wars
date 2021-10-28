@@ -41,6 +41,11 @@ public:
     void OnTimer(wxTimerEvent& event);
 
     void SetCustom(bool cus) { mUMLWars.SetCustom(cus); }
+
+    /**
+     * Stop the timer so the window can close
+     */
+    void Stop() {mTimer.Stop();}
 };
 
 #endif //UMLWARS_UMLWARSVIEW_H

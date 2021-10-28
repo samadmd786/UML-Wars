@@ -57,12 +57,11 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     graphics->Scale(mScale, mScale);
 
     if (mCustom) {
-
-//        if (mBackgroundBitmap.IsNull())
-//        {
-//            mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackground);
-//        }
-//        graphics->DrawBitmap(mBackgroundBitmap, -Width, 0, Width*2, Height);
+        if (mBackgroundBitmap.IsNull())
+        {
+            mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackground);
+        }
+        graphics->DrawBitmap(mBackgroundBitmap, -Width, 0, Width*2, Height);
     } else {
         //
         // A rectangle for the virtual area we are drawing on
@@ -138,7 +137,7 @@ void UMLWars::DeleteBox()
 UMLWars::UMLWars()
 {
     SetCustom(false);
-    mBackground = make_shared<wxImage>(L"images/harold.png");
+    mBackground = make_shared<wxImage>(L"images/halloween.jpg");
 }
 
 /**

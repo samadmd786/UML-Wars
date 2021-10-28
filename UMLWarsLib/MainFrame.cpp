@@ -55,6 +55,7 @@ void MainFrame::Initialize()
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnVariantStandard, this, IDM_STANDARD);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnVariantCustom, this, IDM_CUSTOM);
+    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
 
     mUMLWarsView = mainView;
 }
@@ -97,4 +98,14 @@ void MainFrame::OnVariantStandard(wxCommandEvent& event)
 void MainFrame::OnVariantCustom(wxCommandEvent& event)
 {
     mUMLWarsView->SetCustom(true);
+}
+
+/**
+ * Handle a close event. Stop the animation and destroy this window.
+ * @param event The Close event
+ */
+void MainFrame::OnClose(wxCloseEvent& event)
+{
+    mUMLWarsView->Stop();
+    Destroy();
 }
