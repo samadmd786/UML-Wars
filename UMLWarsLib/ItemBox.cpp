@@ -71,11 +71,10 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
  */
 void ItemBox::Draw(wxGraphicsContext* graphics)
 {
-    if (GetRotateVariant()) {
-        graphics->PushState();  // Save the graphics state
-        graphics->Translate(GetX(), GetY());
-        graphics->Rotate(GetRotation());
-    }
+    graphics->PushState();  // Save the graphics state
+    graphics->Translate(GetX(), GetY());
+    graphics->Rotate(GetRotation());
+
 
     ///
     /// Measuring text
@@ -129,53 +128,25 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    if (GetRotateVariant())
-    {
-        graphics->DrawRectangle(-mWidth/2., -mHeight/2., mWidth, mHeight);
-        graphics->DrawText(mClassName, (- classWidth) / 2., -mHeight/2.);
-        graphics->StrokeLine(-mWidth/2., -mHeight/2.+hit, -mWidth/2.+wid, -mHeight/2.+hit);
-    }
-    else
-    {
-        graphics->DrawRectangle(GetX(), GetY(), mWidth, mHeight);
-        graphics->DrawText(mClassName, GetX() + (wid - classWidth) / 2., GetY());
-        graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
-    }
+
+    graphics->DrawRectangle(-mWidth/2., -mHeight/2., mWidth, mHeight);
+    graphics->DrawText(mClassName, (- classWidth) / 2., -mHeight/2.);
+    graphics->StrokeLine(-mWidth/2., -mHeight/2.+hit, -mWidth/2.+wid, -mHeight/2.+hit);
+
 
     graphics->SetFont(font, wxColour(0, 0, 0));
     int i = 1;
     int j = 0;
 
     for (auto attribute: mAttributes) {
-        if (GetRotateVariant())
-        {
-            graphics->DrawText(attribute.GetName(), -mWidth/2., -mHeight/2.+hit*i);
-        }
-        else
-        {
-            graphics->DrawText(attribute.GetName(), GetX(), GetY()+hit*i);
-        }
+        graphics->DrawText(attribute.GetName(), -mWidth/2., -mHeight/2.+hit*i);
         i++;
     }
 
     if (!mOperations.empty()) {
-        if (GetRotateVariant())
-        {
-            graphics->StrokeLine(-mWidth/2., -mHeight/2.+hit*i, -mWidth/2.+wid, -mHeight/2.+hit*i);
-        }
-        else
-        {
-            graphics->StrokeLine(GetX(), GetY()+hit*i, GetX()+wid, GetY()+hit*i);
-        }
+        graphics->StrokeLine(-mWidth/2., -mHeight/2.+hit*i, -mWidth/2.+wid, -mHeight/2.+hit*i);
         for (auto operation: mOperations) {
-            if (GetRotateVariant())
-            {
-                graphics->DrawText(operation.GetName(), -mWidth/2., -mHeight/2.+hit*i+hit*j);
-            }
-            else
-            {
-                graphics->DrawText(operation.GetName(), GetX(), GetY()+hit*i+hit*j);
-            }
+            graphics->DrawText(operation.GetName(), -mWidth/2., -mHeight/2.+hit*i+hit*j);
             j++;
         }
     }
@@ -193,20 +164,10 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         } else {
             graphics->SetFont(errorFont, wxColour(192, 0, 0));
         }
-        if (GetRotateVariant())
-        {
-            graphics->DrawText(mMsgString, (-mWidth/2. + (mWidth / 2)) - (msgWidth), -mHeight/2. + (mHeight - msgHeight) / 2.);
-        }
-        else
-        {
-            graphics->DrawText(mMsgString, (GetX() + (mWidth / 2)) - (msgWidth), GetY() + (mHeight - msgHeight) / 2.);
-        }
+        graphics->DrawText(mMsgString, (-mWidth/2. + (mWidth / 2)) - (msgWidth), -mHeight/2. + (mHeight - msgHeight) / 2.);
     }
 
-    if (GetRotateVariant())
-    {
         graphics->PopState();   // Restore the graphics state
-    }
 }
 
 /**
