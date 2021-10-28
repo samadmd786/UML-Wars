@@ -18,8 +18,13 @@
 #include "LoadXML.h"
 #include "ItemBox.h"
 
+/**
+ * Item class
+ */
 class Item;
-
+/**
+ * Class for UMLWars game
+ */
 class UMLWars {
 private:
 
@@ -93,6 +98,10 @@ public:
      */
     void SetHarold(std::shared_ptr<ItemHarold> harold) { mHarold = harold; }
 
+    /**
+     * Setter for custom background
+     * @param cus a pointer to harold
+     */
     void SetCustom(bool cus) { mCustom = cus; }
 
     /**
@@ -110,21 +119,37 @@ public:
     /**
      * Getter for the scoreboard
      * @param board a pointer to the scoreboard
+     * @return shared_ptr<Item>
      */
      std::shared_ptr<Item> GetScoreBoard() { return mItems[2]; }
 
+     /// Add function
     void Add(std::shared_ptr<Item> item);
 
+    /**
+    * Remove add function
+    */
     void AddToRemove(long id);
 
+    /**
+    * Remove function
+    * @param item to remove
+    */
     void Remove(std::shared_ptr<Item> item);
 
+    /**
+    * Remove function
+    * @return void
+    */
     void LaunchPen();
 
+    /// Function to reset pen
     void ResetPen();
 
+    ///Function to draw window
     void OnDraw(wxGraphicsContext* graphics, int width, int height);
 
+    ///Update function
     void Update(double elapsed);
 
     /**
@@ -139,6 +164,7 @@ public:
      */
     LoadXML GetXML() { return mXML; }
 
+    /// Delete box function
     void DeleteBox();
 
 

@@ -18,6 +18,7 @@ using namespace std;
 /// Frame duration in milliseconds
 const int FrameDuration = 25;
 
+/// constant for emission variable
 const int emission = 1;
 
 /**

@@ -18,9 +18,14 @@
 class ScoreBoard : public Item{
     private:
 
-    int mUnfair = 0;
-    int mMissed = 0;
-    int mCorrect = 0;
+        ///Unfair count
+        int mUnfair = 0;
+
+        /// Missed count
+        int mMissed = 0;
+
+        ///Correct count
+        int mCorrect = 0;
 
     public:
 
@@ -33,10 +38,13 @@ class ScoreBoard : public Item{
         /// Assignment operator
         void operator=(const ScoreBoard &) = delete;
 
+        /// Copy constructor
         ScoreBoard(UMLWars* umlWars);
 
-        //virtual void Update(double elapsed) override;
-
+        /**
+         * Draw function for scoreboard
+         * @param graphics
+         */
         virtual void Draw(wxGraphicsContext* graphics) override;
 
         /**

@@ -29,17 +29,23 @@ public:
     /// Assignment operator
     void operator=(const ItemPen&) = delete;
 
+    /// Copy constructor
     ItemPen(UMLWars* umlWars);
 
     /**
      * Getter for launch state
+     * @param mLaunched
+     * @return bool indicating if pen is launched
      */
      bool GetLaunch() { return mLaunched; }
 
+     /// Launch pen
     void Launch();
 
+    /// Reset pen back in hand
     void Reset();
 
+    ///Update pen
     virtual void Update(double elapsed) override;
 
 };

@@ -9,7 +9,7 @@ using namespace std;
 
 /**
  * Constructor
- * @param umlwars UMLWars this block is a member of
+ * @param umlWars UMLWars this block is a member of
  */
 ScoreBoard::ScoreBoard(UMLWars* umlWars)
         :Item(umlWars)

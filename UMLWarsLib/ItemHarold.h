@@ -1,8 +1,6 @@
 /**
  * @file ItemHarold.h
  * @author hemke
- *
- * Class for ItemHarold in UML Wars game
  */
 
 #ifndef UMLWARS_ITEMHAROLD_H
@@ -10,6 +8,9 @@
 
 #include "GraphicsItem.h"
 
+/**
+ * Class for Harold item
+ */
 class ItemHarold : public GraphicsItem{
 
 public:
@@ -22,8 +23,10 @@ public:
     /// Assignment operator
     void operator=(const ItemHarold &) = delete;
 
+    /// Default constructor
     ItemHarold(UMLWars* umlWars);
 
+    ///Update function
     virtual void Update(double elapsed) override;
 
 };

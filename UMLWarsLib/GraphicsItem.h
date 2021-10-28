@@ -12,6 +12,9 @@
 #include <memory>
 #include <wx/graphics.h>
 
+/**
+ * Class for graphics items
+ */
 class GraphicsItem : public Item{
 protected:
     GraphicsItem(UMLWars* umlWars, const std::wstring &filename);
@@ -39,6 +42,10 @@ public:
      */
     wxGraphicsBitmap GetBitmap() {return mItemBitmap; }
 
+    /**
+     * Draw function for graphics item
+     * @return void
+     */
     virtual void Draw(wxGraphicsContext* graphics);
 };
 

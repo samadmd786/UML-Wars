@@ -22,7 +22,7 @@ GraphicsItem::GraphicsItem(UMLWars* umlWars, const std::wstring &filename) : Ite
 
 /**
  * Draw this item
- * @param dc - Device context to draw on
+ * @param graphics - graphics item to draw
  */
 void GraphicsItem::Draw(wxGraphicsContext* graphics)
 {

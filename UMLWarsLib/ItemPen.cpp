@@ -25,7 +25,7 @@ const double offsetAngular = -1.078;
 
 /**
  * Constructor
- * @param umlwars UML Wars game this pen is a member of
+ * @param umlWars UML Wars game this pen is a member of
  */
 ItemPen::ItemPen(UMLWars *umlWars) : GraphicsItem(umlWars, PenImageName)
 {

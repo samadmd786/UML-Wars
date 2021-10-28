@@ -142,7 +142,7 @@ UMLWars::UMLWars()
 
 /**
  * Add an item to the remove vector
- * @param item - New item to add
+ * @param id - New item to add
  */
 void UMLWars::AddToRemove(long id)
 {
