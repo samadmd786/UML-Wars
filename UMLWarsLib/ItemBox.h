@@ -28,6 +28,8 @@ private:
     wxString mMsgString;
     double mDestroyTime = 0;
     double mCurrentTime = 0;
+    /// If true boxes will rotate while falling down
+    bool mRotateVariant = false;
 
 public:
 
@@ -57,6 +59,18 @@ public:
      * @return height in pixels
      */
     double GetHeight() const { return mHeight; }
+
+    /**
+     * Getter for rotation variant
+     * @return true if box rotation is set, false otherwise
+     */
+    bool GetRotateVariant() { return mRotateVariant; }
+
+    /**
+     * Setter for rotation variant
+     * @param rotate - true if box is being set to rotate
+     */
+    void SetRotationVariant(bool rotate) { mRotateVariant = rotate; }
 
     virtual bool HitTest(int x, int y);
 };
