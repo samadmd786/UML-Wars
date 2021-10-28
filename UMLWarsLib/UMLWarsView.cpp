@@ -114,7 +114,7 @@ void UMLWarsView::OnTimer(wxTimerEvent& event)
         int goodOrBad = badDistribution(mUMLWars.GetRandom());
         auto Box = make_shared<ItemBox>(&mUMLWars, goodOrBad % 2);
         Box->SetSpeed(mCurrentSpeed);
-        if (mStopWatch.Time() > 3000) {
+        if (mStopWatch.Time() > 25000) {
             std::uniform_real_distribution<> distribution(0, 100);
             double random = distribution(mUMLWars.GetRandom());
             if (random >= 75)
