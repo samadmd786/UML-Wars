@@ -16,18 +16,26 @@ class MainFrame : public wxFrame {
 private:
     /// View class for our Demo
     UMLWarsView *mUMLWarsView;
+
+    /// About menu option
     void OnAbout(wxCommandEvent &);
+
+    /// Exit menu option
     void OnExit(wxCommandEvent &event);
 
-    bool mStandard = true;
-
-
 public:
+
+    /// Initialize function
     void Initialize();
 
+    /// Standard menu option
     void OnVariantStandard(wxCommandEvent& event);
 
+    /// Custom menu option
     void OnVariantCustom(wxCommandEvent& event);
+
+    /// Close windown option
+    void OnClose(wxCloseEvent& event);
 };
 
 #endif //UMLWARS_MAINFRAME_H

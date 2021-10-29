@@ -18,7 +18,7 @@ const double pi = 3.1415;
 
 /**
  * Constructor
- * @param umlwars game this item is a member of
+ * @param umlWars game this item is a member of
  */
 ItemHarold::ItemHarold(UMLWars *umlWars) : GraphicsItem(umlWars, HaroldImageName)
 {

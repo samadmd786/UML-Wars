@@ -5,6 +5,9 @@
 
 #include "pch.h"
 #include "UMLWarsView.h"
+#include "ItemHarold.h"
+#include "ItemBox.h"
+#include "ItemPen.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <memory>
@@ -15,7 +18,8 @@ using namespace std;
 /// Frame duration in milliseconds
 const int FrameDuration = 25;
 
-const int emission = 2;
+/// constant for emission variable
+const int emission = 1;
 
 /**
  * Constructor
@@ -32,7 +36,9 @@ UMLWarsView::UMLWarsView()
     Pen->SetX(29);
     Pen->SetY(846);
     mUMLWars.Add(Pen);
-    mUMLWars.SetPen(Pen);
+
+    auto Board = make_shared<ScoreBoard>(&mUMLWars);
+    mUMLWars.Add(Board);
 }
 
 /**
@@ -104,15 +110,23 @@ void UMLWarsView::OnLeftDown(wxMouseEvent& event)
  */
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
-    if ((mStopWatch.Time() - mLastBox) > 1000*emission)
-    {
-        auto Box = make_shared<ItemBox>(&mUMLWars);
+    if ((mStopWatch.Time() - mLastBox) > 2000) {
+        std::uniform_int_distribution<int> badDistribution(0,10);
+        int goodOrBad = badDistribution(mUMLWars.GetRandom());
+        auto Box = make_shared<ItemBox>(&mUMLWars, goodOrBad % 2);
         Box->SetSpeed(mCurrentSpeed);
+        if (mStopWatch.Time() > 25000) {
+            std::uniform_real_distribution<> distribution(0, 100);
+            double random = distribution(mUMLWars.GetRandom());
+            if (random >= 75)
+            {
+                Box->SetRotationVariant(true);
+            }
+        }
         mUMLWars.Add(Box);
         mLastBox = mStopWatch.Time();
     }
-    if (mStopWatch.Time()%10000<=50)
-    {
+    if (mStopWatch.Time()%10000<=30) {
         mCurrentSpeed += 1;
     }
     Refresh();

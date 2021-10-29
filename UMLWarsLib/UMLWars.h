@@ -14,11 +14,17 @@
 #include "GraphicsItem.h"
 #include "ItemHarold.h"
 #include "ItemPen.h"
+#include "ScoreBoard.h"
 #include "LoadXML.h"
 #include "ItemBox.h"
 
+/**
+ * Item class
+ */
 class Item;
-
+/**
+ * Class for UMLWars game
+ */
 class UMLWars {
 private:
 
@@ -26,6 +32,7 @@ private:
     double mScale;   ///< scale for virtual pixel conversion
     double mXOffset; ///< X offset for virtual pixel conversion
     double mYOffset; ///< Y offset for virtual pixel conversion
+    long mLastID = 0; ///< Last ID of the item
 
     // mouse location information
     double mMouseX = 0; ///< x coordinate of the mouse in virtual pixels
@@ -40,14 +47,20 @@ private:
     /// Harold Pointer
     std::shared_ptr<ItemHarold> mHarold;
 
-    /// Pointer for most recently added pen object
-    std::shared_ptr<ItemPen> mPen;
-
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
-    /// Vector of items to be removed
-    std::vector<std::shared_ptr<Item>> mToRemove;
+    /// Item to be removed
+    long mItemToRemove = -1;
+
+    /// Custom
+    bool mCustom;
+
+    /// mBackground
+    std::shared_ptr<wxImage> mBackground;
+
+    /// Bitmap for the item in question
+    wxGraphicsBitmap mBackgroundBitmap;
 
 public:
     UMLWars();
@@ -86,35 +99,57 @@ public:
     void SetHarold(std::shared_ptr<ItemHarold> harold) { mHarold = harold; }
 
     /**
+     * Setter for custom background
+     * @param cus a pointer to harold
+     */
+    void SetCustom(bool cus) { mCustom = cus; }
+
+    /**
      * Getter for Harold
      * @return a shared pointer to harold
      */
     std::shared_ptr<ItemHarold> GetHarold() { return mHarold; }
 
     /**
-     * Setter for the most recent pen
-     * @param pen a pointer to the pen
-     */
-    void SetPen(std::shared_ptr<ItemPen> pen) { mPen = pen; }
-
-    /**
-     * Getter for the most recent pen
+     * Getter for the pen
      * @return a shared pointer to the pen
      */
-    std::shared_ptr<ItemPen> GetPen() { return mPen; }
+    std::shared_ptr<Item> GetPen() { return mItems[1]; }
 
+    /**
+     * Getter for the scoreboard
+     * @param board a pointer to the scoreboard
+     * @return shared_ptr<Item>
+     */
+     std::shared_ptr<Item> GetScoreBoard() { return mItems[2]; }
+
+     /// Add function
     void Add(std::shared_ptr<Item> item);
 
-    void AddToRemove(std::shared_ptr<Item> item);
+    /**
+    * Remove add function
+    */
+    void AddToRemove(long id);
 
+    /**
+    * Remove function
+    * @param item to remove
+    */
     void Remove(std::shared_ptr<Item> item);
 
+    /**
+    * Remove function
+    * @return void
+    */
     void LaunchPen();
 
+    /// Function to reset pen
     void ResetPen();
 
+    ///Function to draw window
     void OnDraw(wxGraphicsContext* graphics, int width, int height);
 
+    ///Update function
     void Update(double elapsed);
 
     /**
@@ -129,6 +164,7 @@ public:
      */
     LoadXML GetXML() { return mXML; }
 
+    /// Delete box function
     void DeleteBox();
 
 

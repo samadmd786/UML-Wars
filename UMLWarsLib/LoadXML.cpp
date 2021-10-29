@@ -6,6 +6,10 @@
 #include <random>
 #include "LoadXML.h"
 
+/**
+ * Const for XML file
+ * @return wxString of file
+ */
 const wxString fileXML("data/uml.xml");
 
 /**
@@ -62,7 +66,7 @@ LoadXML::LoadXML()
 
 /**
  * Get Class Name
- * @param good, defaults to true
+ * @param good to true
  * @return element ElementHolder item with the good/bad class
 */
 ElementHolder LoadXML::GetClassName(bool good) {
@@ -76,7 +80,7 @@ ElementHolder LoadXML::GetClassName(bool good) {
 
 /**
  * Get Random Attributes
- * @param good, defaults to true
+ * @param good to true
  * @return element ElementHolder item with the good/bad attributes
 */
 std::vector<ElementHolder> LoadXML::GetAttributes(bool good) {
@@ -110,7 +114,7 @@ std::vector<ElementHolder> LoadXML::GetAttributes(bool good) {
 
 /**
  * Get Random Attributes
- * @param good, defaults to true
+ * @param good to true
  * @return element ElementHolder item with the good/bad attributes
 */
 std::vector<ElementHolder> LoadXML::GetOperations(bool good) {

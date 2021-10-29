@@ -30,6 +30,9 @@ private:
     /// Speed for the item
     double mSpeed = 0;
 
+    /// Unique ID
+    long mID = 0;
+
 public:
     /// Default constructor (disabled)
     Item() = delete;
@@ -89,23 +92,67 @@ public:
     void SetSpeed(double speed) { mSpeed = speed; }
 
     /**
+     * Getter for the id of the item
+     * @return Item id
+     */
+    long GetID() { return mID; }
+
+    /**
+     * Sets the ID of the item
+     * @param id the new ID
+     */
+    void SetID(long id) { mID = id; }
+
+    /**
     * Get the pointer to the UML War game object
     * @return Pointer to UML War game object
     */
     UMLWars* GetUMLWars() { return mUMLWars; }
 
+    /**
+    * Draw function for graphics
+    * @param graphics graphics for drawing
+    */
     virtual void Draw(wxGraphicsContext* graphics);
 
+    /// returns True if item is hit, else returns false
     virtual bool HitTest(int x, int y);
 
     /**
     * Handle updates for animation
+     * @param elapsed elapsed time
+     * @return void
     */
     virtual void Update(double elapsed) { }
 
     bool IsOffScreen();
 
     virtual ~Item();
+
+    /**
+     * Handles launch of an item
+     */
+    virtual void Launch() {};
+
+    /**
+     * Handles launch of an item
+     */
+    virtual void Reset() {};
+
+    /**
+     * Increments mUnfair by one
+     */
+    virtual void IncUnfair() { }
+
+    /**
+     * Increments mMissed by one
+     */
+    virtual void IncMissed() { }
+
+    /**
+     * Increments mCorrect by one
+     */
+    virtual void IncCorrect() { }
 
 protected:
     Item(UMLWars* umlWars);

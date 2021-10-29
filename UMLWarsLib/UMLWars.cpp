@@ -25,7 +25,9 @@ const static int Height = 1000;
  */
 void UMLWars::Add(std::shared_ptr<Item> item)
 {
+    item->SetID(mLastID);
     mItems.push_back(item);
+    mLastID++;
 }
 
 /**
@@ -54,50 +56,32 @@ void UMLWars::OnDraw(wxGraphicsContext* graphics, int width, int height)
     graphics->Translate(mXOffset, mYOffset);
     graphics->Scale(mScale, mScale);
 
-    //
-    // A rectangle for the virtual area we are drawing on
-    //
-    wxBrush rectBrush(*wxWHITE);
-    graphics->SetBrush(rectBrush);
-    graphics->SetPen(*wxWHITE_PEN);
-    graphics->DrawRectangle(-Width, 0, Width*2, Height);
+    if (mCustom) {
+        if (mBackgroundBitmap.IsNull())
+        {
+            mBackgroundBitmap = graphics->CreateBitmapFromImage(*mBackground);
+        }
+        graphics->DrawBitmap(mBackgroundBitmap, -Width, 0, Width*2, Height);
+    } else {
+        //
+        // A rectangle for the virtual area we are drawing on
+        //
+        wxBrush rectBrush(*wxWHITE);
+        graphics->SetBrush(rectBrush);
+        graphics->SetPen(*wxWHITE_PEN);
+        graphics->DrawRectangle(-Width, 0, Width*2, Height);
+    }
 
     for (auto item: mItems) {
         item->Draw(graphics);
     }
+    GetScoreBoard()->Draw(graphics);
+
     wxBrush rectBrushBlack(*wxBLACK);
     graphics->SetBrush(rectBrushBlack);
     graphics->SetPen(*wxBLACK_PEN);
     graphics->DrawRectangle(-Width, 0, Width/2., Height);
     graphics->DrawRectangle(Width/2., 0, Width/2., Height);
-
-
-    //
-    // Draw in virtual pixels on the graphics context
-    //
-    // INSERT YOUR DRAWING CODE HERE
-    // Draw the scoreboard
-    wxFont font(wxSize(0, 45),
-            wxFONTFAMILY_SWISS,
-            wxFONTSTYLE_NORMAL,
-            wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font, wxColour(0, 139, 139));
-    graphics->DrawText(L"Correct", -300, 200);
-    graphics->DrawText(L"Missed", 0, 200);
-    graphics->DrawText(L"Unfair", 300, 200);
-
-    // Draw the score
-    int correctNum = 0;
-    int missedNum = 0;
-    int unfairNum = 0;
-    wxFont fontNum(wxSize(0, 100),
-            wxFONTFAMILY_SWISS,
-            wxFONTSTYLE_NORMAL,
-            wxFONTWEIGHT_BOLD);
-    graphics->SetFont(fontNum, wxColour(0, 139, 139));
-    graphics->DrawText(to_string(correctNum), -250, 50);
-    graphics->DrawText(to_string(missedNum), 50, 50);
-    graphics->DrawText(to_string(unfairNum), 350, 50);
 
     graphics->PopState();
 }
@@ -110,9 +94,8 @@ void UMLWars::Update(double elapsed)
 {
     for (auto item: mItems) {
         item->Update(elapsed);
-
     }
-    if (!mToRemove.empty()) {
+    if (mItemToRemove >= 0) {
         DeleteBox();
     }
 
@@ -124,8 +107,8 @@ void UMLWars::Update(double elapsed)
  */
 void UMLWars::LaunchPen()
 {
-    if (mPen) {
-        mPen->Launch();
+    if (GetPen()) {
+        GetPen()->Launch();
     }
 }
 
@@ -135,30 +118,35 @@ void UMLWars::LaunchPen()
  */
 void UMLWars::ResetPen()
 {
-    mPen->Reset();
+    GetPen()->Reset();
 }
 
 void UMLWars::DeleteBox()
 {
-
-    for (auto item: mToRemove) {
-        Remove(item);
+    if(mItemToRemove >= 0) {
+        for (auto item : mItems) {
+            if (item->GetID() == mItemToRemove){
+                Remove(item);
+                break;
+            }
+        }
+        mItemToRemove = -1;
     }
-
 }
 
 UMLWars::UMLWars()
 {
+    SetCustom(false);
+    mBackground = make_shared<wxImage>(L"images/halloween.jpg");
 }
 
 /**
  * Add an item to the remove vector
- * @param item - New item to add
+ * @param id - New item to add
  */
-void UMLWars::AddToRemove(std::shared_ptr<Item> item)
+void UMLWars::AddToRemove(long id)
 {
-    mToRemove.push_back(item);
-    ResetPen();
+    mItemToRemove = id;
 }
 
 void UMLWars::Remove(std::shared_ptr<Item> item)

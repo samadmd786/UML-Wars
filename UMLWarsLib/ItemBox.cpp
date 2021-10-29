@@ -8,12 +8,17 @@
 #include <memory>
 #include <random>
 #include "UMLWars.h"
+#include "Item.h"
+#include <wx/utils.h>
 
 using namespace std;
 
+/// constant for pi
+const double pi = 3.1415;
+
 /**
  * Constructor
- * @param umlwars UMLWars this block is a member of
+ * @param umlWars, good UMLWars this block is a member of
  */
 ItemBox::ItemBox(UMLWars* umlWars, bool good)
         :Item(umlWars)
@@ -28,12 +33,21 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
         mClassName = xml.GetClassName().GetName();
         mAttributes = xml.GetAttributes();
         mOperations = xml.GetOperations();
+        mMsgString = "Unfair!";
     } else {
         std::uniform_int_distribution<int> badDistribution(0,2);
         int badType = badDistribution(umlWars->GetRandom());
-        mClassName = xml.GetClassName(badType != 0).GetName();
+        ElementHolder className = xml.GetClassName(badType != 0);
+        mClassName = className.GetName();
         mAttributes = xml.GetAttributes(badType != 1);
         mOperations = xml.GetOperations(badType != 2);
+        mMsgString = className.GetBad();
+        for (auto attr : mAttributes) {
+            mMsgString += attr.GetBad();
+        }
+        for (auto op : mOperations) {
+            mMsgString += op.GetBad();
+        }
     }
 
     if (random>=0) {
@@ -57,6 +71,11 @@ ItemBox::ItemBox(UMLWars* umlWars, bool good)
  */
 void ItemBox::Draw(wxGraphicsContext* graphics)
 {
+    graphics->PushState();  // Save the graphics state
+    graphics->Translate(GetX(), GetY());
+    graphics->Rotate(GetRotation());
+
+
     ///
     /// Measuring text
     ///
@@ -101,32 +120,54 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
         }
     }
 
+
+    mWidth = wid;
+    mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
+
     /// Rectangle setup
     wxBrush rectBrush(wxColour(255, 255, 193));
     graphics->SetBrush(rectBrush);
     graphics->SetPen(*wxBLACK_PEN);
-    graphics->DrawRectangle(GetX(), GetY(), wid, hit*(mAttributes.size() + mOperations.size() + 2));
-    graphics->DrawText(mClassName, GetX() + (wid - classWidth) / 2., GetY());
-    graphics->StrokeLine(GetX(), GetY()+hit, GetX()+wid, GetY()+hit);
+
+    graphics->DrawRectangle(-mWidth/2., -mHeight/2., mWidth, mHeight);
+    graphics->DrawText(mClassName, (- classWidth) / 2., -mHeight/2.);
+    graphics->StrokeLine(-mWidth/2., -mHeight/2.+hit, -mWidth/2.+wid, -mHeight/2.+hit);
+
+
     graphics->SetFont(font, wxColour(0, 0, 0));
     int i = 1;
     int j = 0;
 
     for (auto attribute: mAttributes) {
-        graphics->DrawText(attribute.GetName(), GetX(), GetY()+hit*i);
+        graphics->DrawText(attribute.GetName(), -mWidth/2., -mHeight/2.+hit*i);
         i++;
     }
 
     if (!mOperations.empty()) {
-        graphics->StrokeLine(GetX(), GetY()+hit*i, GetX()+wid, GetY()+hit*i);
+        graphics->StrokeLine(-mWidth/2., -mHeight/2.+hit*i, -mWidth/2.+wid, -mHeight/2.+hit*i);
         for (auto operation: mOperations) {
-            graphics->DrawText(operation.GetName(), GetX(), GetY()+hit*i+hit*j);
+            graphics->DrawText(operation.GetName(), -mWidth/2., -mHeight/2.+hit*i+hit*j);
             j++;
         }
     }
 
-    mWidth = wid;
-    mHeight = hit*(mAttributes.size() + mOperations.size() + 2);
+
+    if (mError) {
+        wxFont errorFont(wxSize(0, 50),
+                wxFONTFAMILY_SWISS,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+        double msgWidth, msgHeight;
+        graphics->GetTextExtent(mMsgString, &msgWidth, &msgHeight);
+        if (!mGood) {
+            graphics->SetFont(errorFont, wxColour(0, 176, 80));
+        } else {
+            graphics->SetFont(errorFont, wxColour(192, 0, 0));
+        }
+        graphics->DrawText(mMsgString, (-mWidth/2. + (mWidth / 2)) - (msgWidth), -mHeight/2. + (mHeight - msgHeight) / 2.);
+    }
+
+        graphics->PopState();   // Restore the graphics state
 }
 
 /**
@@ -135,36 +176,56 @@ void ItemBox::Draw(wxGraphicsContext* graphics)
 */
 void ItemBox::Update(double elapsed)
 {
-    SetX(GetX()+(GetSpeed()*mDirection*mXDir));
-    SetY(GetY()+(GetSpeed()*mYDir));
-    double penX = GetUMLWars()->GetPen()->GetX();
-    double penY = GetUMLWars()->GetPen()->GetY();
-    if (IsOffScreen() || HitTest(penX, penY)) {
-        GetUMLWars()->AddToRemove(static_cast<shared_ptr<Item>>(this));
+    if(!mError) {
+        SetX(GetX()+(GetSpeed()*mDirection*mXDir));
+        SetY(GetY()+(GetSpeed()*mYDir));
+        if (GetRotateVariant()){
+            // rotation code here
+            SetRotation(GetRotation() + elapsed/2.);
+        }
+        double penX = GetUMLWars()->GetPen()->GetX();
+        double penY = GetUMLWars()->GetPen()->GetY();
+        bool hitPen = HitTest(penX, penY);
+        if (IsOffScreen() || hitPen) {
+            if(hitPen) {
+                mError = true;
+                GetUMLWars()->ResetPen();
+                if(!mGood) {
+                    GetUMLWars()->GetScoreBoard()->IncCorrect();
+                } else {
+                    GetUMLWars()->GetScoreBoard()->IncUnfair();
+                }
+            } else {
+                GetUMLWars()->AddToRemove(this->GetID());
+                if(!mGood || IsOffScreen()) {
+                    GetUMLWars()->GetScoreBoard()->IncMissed();
+                }
+            }
+        }
+        mDestroyTime += elapsed;
+    } else if (mError && mCurrentTime - mDestroyTime > 2) {
+        GetUMLWars()->AddToRemove(this->GetID());
     }
+    mCurrentTime += elapsed;
 }
 
 /**
 * Test an x,y click location to see if it clicked
-* on some item in the aquarium
+* on some item in the game
 * @param x X location in pixels
 * @param y Y location in pixels
 * @returns Pointer to item we clicked on or nullptr if none
 */
 bool ItemBox::HitTest(int x, int y)
 {
-
-    double wid = GetWidth();
-    double hit = GetHeight();
-
     // Make x and y relative to the top-left corner of the bitmap image
     // Subtracting the center makes x, y relative to the image center
     // Adding half the size makes x, y relative to the image top corner
-    double testX = x-GetX()+wid/2.;
-    double testY = y-GetY()+hit/2.;
+    double testX = x-GetX()+mWidth/2;
+    double testY = y-GetY()+mHeight/2;
 
     // Test to see if x, y are in the image
-    if (testX<0 || testY<0 || testX>=wid || testY>=hit) {
+    if (testX<0 || testY<0 || testX>=mWidth*2 || testY>=mHeight) {
         // We are outside the image
         return false;
     }
