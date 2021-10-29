@@ -25,7 +25,7 @@ TEST(ItemHaroldTest, Construct)
     ItemHaroldMock Harold(&umlWars);
 }
 
-TEST(ItemHaroldTest, Reset)
+TEST(ItemHaroldTest, Position)
 {
     UMLWars umlWars;
     ItemHaroldMock Harold(&umlWars);
@@ -39,20 +39,11 @@ TEST(ItemHaroldTest, Reset)
     ASSERT_NEAR(100.0, Harold.GetX(), 0.0001);
     ASSERT_NEAR(100.0, Harold.GetY(), 0.0001);
 
+    Harold.SetX(50.0);
+    Harold.SetY(50.0);
+
+    ASSERT_NEAR(50.0, Harold.GetX(), 0.0001);
+    ASSERT_NEAR(50.0, Harold.GetY(), 0.0001);
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
