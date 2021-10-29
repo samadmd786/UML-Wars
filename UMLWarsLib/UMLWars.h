@@ -38,6 +38,9 @@ private:
     double mMouseX = 0; ///< x coordinate of the mouse in virtual pixels
     double mMouseY = 0; ///< y coordinate of the mouse in virtual pixels
 
+    /// rotation speed for boxes
+    double mRotationSpeed = 1;
+
     /// xml data holder
     LoadXML mXML;
 
@@ -166,6 +169,12 @@ public:
 
     /// Delete box function
     void DeleteBox();
+
+    /// Setter for rotation speed
+    void SetRotationSpeed(double speed) {mRotationSpeed = speed;}
+
+    /// Getter for Rotation Speed
+    double GetRotationSpeed() {return mRotationSpeed; }
 
 
 };

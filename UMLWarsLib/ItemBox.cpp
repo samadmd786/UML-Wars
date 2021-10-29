@@ -180,8 +180,7 @@ void ItemBox::Update(double elapsed)
         SetX(GetX()+(GetSpeed()*mDirection*mXDir));
         SetY(GetY()+(GetSpeed()*mYDir));
         if (GetRotateVariant()){
-            // rotation code here
-            SetRotation(GetRotation() + elapsed/2.);
+            SetRotation(GetRotation() + GetUMLWars()->GetRotationSpeed()*elapsed/2.);
         }
         double penX = GetUMLWars()->GetPen()->GetX();
         double penY = GetUMLWars()->GetPen()->GetY();
@@ -189,11 +188,23 @@ void ItemBox::Update(double elapsed)
         if (IsOffScreen() || hitPen) {
             if(hitPen) {
                 mError = true;
-                GetUMLWars()->ResetPen();
+                auto UMLWars = GetUMLWars();
+                UMLWars->ResetPen();
+
                 if(!mGood) {
                     GetUMLWars()->GetScoreBoard()->IncCorrect();
+
+                    // harold slows down, and boxes rotate more slowly
+                    auto harold = UMLWars->GetHarold();
+                    harold->SetSliding(.90*harold->GetSliding());
+                    UMLWars->SetRotationSpeed(.98*UMLWars->GetRotationSpeed());
                 } else {
                     GetUMLWars()->GetScoreBoard()->IncUnfair();
+
+                    // harold speeds up, and boxes rotate more quickly
+                    auto harold = GetUMLWars()->GetHarold();
+                    harold->SetSliding(1.05*harold->GetSliding());
+                    UMLWars->SetRotationSpeed(1.15*UMLWars->GetRotationSpeed());
                 }
             } else {
                 GetUMLWars()->AddToRemove(this->GetID());

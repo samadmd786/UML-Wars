@@ -38,7 +38,15 @@ ItemPen::ItemPen(UMLWars *umlWars) : GraphicsItem(umlWars, PenImageName)
 void ItemPen::Launch()
 {
     mLaunched = true;
-    SetSpeed(20.);
+    mFiringAngle = GetRotation() - 3.*pi/4.;
+    auto harold = GetUMLWars()->GetHarold();
+    if (mFastPen){
+        SetSpeed(75.);
+    }
+    else{
+        SetSpeed(20.);
+    }
+    harold->SetFastPen(0);
 }
 /**
  * Handle updates for animation
@@ -56,15 +64,17 @@ void ItemPen::Update(double elapsed)
         SetRotation(harold->GetRotation()+pi/4.);
 
         // Now, we need to get the position of Harold's hand and use it to set the pen location
-        SetX(offsetRadial*cos(harold->GetRotation()+offsetAngular));
+        SetX(harold->GetX() + offsetRadial*cos(harold->GetRotation()+offsetAngular));
         SetY(harold->GetY() + offsetRadial*sin(harold->GetRotation()+offsetAngular));
     }
     else
     {
         // in this case, the pen has been launched. Its movement is no longer tied to Harold.
-        double firingAngle = GetRotation() - 3.*pi/4.;
-        SetX(GetX() + GetSpeed()*cos(firingAngle));
-        SetY(GetY() + GetSpeed()*sin(firingAngle));
+        SetX(GetX() + GetSpeed()*cos(mFiringAngle));
+        SetY(GetY() + GetSpeed()*sin(mFiringAngle));
+        if (mFastPen){
+            SetRotation(GetRotation() + 20*elapsed);
+        }
 
         if (IsOffScreen())
         {
@@ -80,6 +90,8 @@ void ItemPen::Update(double elapsed)
 void ItemPen::Reset()
 {
     mLaunched = false;
+    mFastPen = false;
+
     // Fetch Harold, we'll need info about him
     std::shared_ptr<ItemHarold> harold = GetUMLWars()->GetHarold();
 
@@ -87,8 +99,17 @@ void ItemPen::Reset()
     SetRotation(harold->GetRotation()+pi/4.);
 
     // Now, we need to get the position of Harold's hand and use it to set the pen location
-    SetX(offsetRadial*cos(harold->GetRotation()+offsetAngular));
+    SetX(harold->GetX() + offsetRadial*cos(harold->GetRotation()+offsetAngular));
     SetY(harold->GetY() + offsetRadial*sin(harold->GetRotation()+offsetAngular));
+
+    // check for fast pen event
+    std::uniform_int_distribution<int> fastPenDist(0,5);
+    int fast = fastPenDist(GetUMLWars()->GetRandom());
+    if (fast > 3){
+        // fast pen event!
+        harold->SetFastPen(1);
+        mFastPen = true;
+    }
 
 }
 

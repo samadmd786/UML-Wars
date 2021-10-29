@@ -19,6 +19,12 @@ private:
     /// boolean indicator of whether the pen has been launched
     bool mLaunched = false;
 
+    /// firing angle
+    double mFiringAngle = 0;
+
+    /// fast pen event indicator
+    bool mFastPen = false;
+
 public:
     /// Default constructor (disabled)
     ItemPen() = delete;
@@ -34,7 +40,6 @@ public:
 
     /**
      * Getter for launch state
-     * @param mLaunched
      * @return bool indicating if pen is launched
      */
      bool GetLaunch() { return mLaunched; }

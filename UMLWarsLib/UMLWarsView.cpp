@@ -123,6 +123,15 @@ void UMLWarsView::OnTimer(wxTimerEvent& event)
                 Box->SetRotationVariant(true);
             }
         }
+        if (mStopWatch.Time() > 10000){
+            auto harold = mUMLWars.GetHarold();
+            if (harold->GetSliding() == 0){
+                harold->SetSliding(1);
+            }
+            else{
+                harold->SetSliding(1.04*harold->GetSliding());
+            }
+        }
         mUMLWars.Add(Box);
         mLastBox = mStopWatch.Time();
     }

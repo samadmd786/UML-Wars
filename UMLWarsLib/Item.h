@@ -113,7 +113,7 @@ public:
     * Draw function for graphics
     * @param graphics graphics for drawing
     */
-    virtual void Draw(wxGraphicsContext* graphics);
+    virtual void Draw(wxGraphicsContext* graphics) {};
 
     /// returns True if item is hit, else returns false
     virtual bool HitTest(int x, int y);

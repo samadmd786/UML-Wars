@@ -35,4 +35,14 @@ void ItemHarold::Update(double elapsed)
     double mouseX = GetUMLWars()->GetMouseX();
     double mouseY = GetUMLWars()->GetMouseY();
     SetRotation(pi/2. + atan2(mouseY-GetY() , mouseX-GetX()));
+    SetX(GetX() + mSliding*5);
+    if (GetX() < -500 || GetX() > 525)
+    {
+        mSliding = -1*mSliding;
+    }
+
+    // fast pen
+    SetY(GetY() + mFastPen*5);
+    mFastPen = -1*mFastPen;
 }
+
