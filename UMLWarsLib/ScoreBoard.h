@@ -11,57 +11,74 @@
 #include "pch.h"
 #include "Item.h"
 
-
 /**
  * Class to display the score on the scoreboard
  */
-class ScoreBoard : public Item{
-    private:
+class ScoreBoard : public Item {
+private:
 
-        ///Unfair count
-        int mUnfair = 0;
+    ///Unfair count
+    int mUnfair = 0;
 
-        /// Missed count
-        int mMissed = 0;
+    /// Missed count
+    int mMissed = 0;
 
-        ///Correct count
-        int mCorrect = 0;
+    ///Correct count
+    int mCorrect = 0;
 
-    public:
+public:
 
-        /// Default constructor (disabled)
-        ScoreBoard() = delete;
+    /// Default constructor (disabled)
+    ScoreBoard() = delete;
 
-        /// Copy constructor (disabled)
-        ScoreBoard(const ScoreBoard &) = delete;
+    /// Copy constructor (disabled)
+    ScoreBoard(const ScoreBoard&) = delete;
 
-        /// Assignment operator
-        void operator=(const ScoreBoard &) = delete;
+    /// Assignment operator
+    void operator=(const ScoreBoard&) = delete;
 
-        /// Copy constructor
-        ScoreBoard(UMLWars* umlWars);
+    /// Copy constructor
+    ScoreBoard(UMLWars* umlWars);
 
-        /**
-         * Draw function for scoreboard
-         * @param graphics
-         */
-        virtual void Draw(wxGraphicsContext* graphics) override;
+    /**
+     * Draw function for scoreboard
+     * @param graphics
+     */
+    virtual void Draw(wxGraphicsContext* graphics) override;
 
-        /**
-         * Increments mUnfair by one
-         */
-        void IncUnfair() { mUnfair++; }
+    /**
+     * Increments mUnfair by one
+     */
+    void IncUnfair() { mUnfair++; }
 
-        /**
-         * Increments mMissed by one
-         */
-        void IncMissed() { mMissed++; }
+    /**
+     * Increments mMissed by one
+     */
+    void IncMissed() { mMissed++; }
 
-        /**
-         * Increments mCorrect by one
-         */
-        void IncCorrect() { mCorrect++; }
+    /**
+     * Increments mCorrect by one
+     */
+    void IncCorrect() { mCorrect++; }
 
-    };
+    /**
+     * Returns mCorrect
+     * @return int mCorrect
+     */
+    int RetCorrect() { return mCorrect; }
+
+    /**
+     * Returns mUnfair
+     * @return int mUnfair
+     */
+    int RetUnfair() { return mUnfair; }
+
+    /**
+     * Returns mMissed
+     * @return int mMissed
+     */
+    int RetMissed() { return mMissed; }
+
+};
 
 #endif //UMLWARS_SCOREBOARD_H
