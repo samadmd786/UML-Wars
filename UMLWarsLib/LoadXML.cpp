@@ -53,10 +53,10 @@ LoadXML::LoadXML()
                 }
             } else if(name == "inheritance"){
                 if (child->GetAttribute("bad") == wxEmptyString){
-                    const ElementHolder inheritedClassItem(child->GetNodeContent(), "");
+                    const ElementHolderInheritance inheritedClassItem(child->GetAttribute("base"), child->GetAttribute("derived"), "");
                     mInherited.push_back(inheritedClassItem);
                 }else{
-                    const ElementHolder badInheritedClassItem(child->GetNodeContent(), child->GetAttribute("bad"));
+                    const ElementHolderInheritance badInheritedClassItem(child->GetAttribute("base"), child->GetAttribute("derived"), child->GetAttribute("bad"));
                     mBadInherited.push_back(badInheritedClassItem);
                 }
             }
@@ -144,4 +144,18 @@ std::vector<ElementHolder> LoadXML::GetOperations(bool good) {
     operations.push_back(mBadOperations[0]);
     std::shuffle(operations.begin(), operations.end(), rand);
     return operations;
+}
+
+/**
+ * Get random inheritance
+ */
+ElementHolderInheritance LoadXML::GetInheritance(bool good){
+    std::random_device rd;
+    std::mt19937 rand(rd());
+
+    std::shuffle(mInherited.begin(), mInherited.end(), rand);
+    std::shuffle(mBadInherited.begin(), mBadInherited.end(), rand);
+
+    return good ? mInherited[0] : mBadInherited[0];
+
 }

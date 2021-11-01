@@ -7,6 +7,7 @@
 #define UMLWARS_LOADXML_H
 
 #include "ElementHolder.h"
+#include "ElementHolderInheritance.h"
 
 /**
  * LoadXML class for loading the UML XML File
@@ -24,12 +25,12 @@ private:
     std::vector<ElementHolder> mBadAttributes;
     /// List of good operations
     std::vector<ElementHolder> mOperations;
-    /// List of bad oeprations
+    /// List of bad operations
     std::vector<ElementHolder> mBadOperations;
     /// List of good inheritance
-    std::vector<ElementHolder> mInherited;
+    std::vector<ElementHolderInheritance> mInherited;
     /// List of bad inheritance
-    std::vector<ElementHolder> mBadInherited;
+    std::vector<ElementHolderInheritance> mBadInherited;
 
 public:
     /// Constructor
@@ -40,6 +41,8 @@ public:
     std::vector<ElementHolder> GetAttributes(bool good = true);
 
     std::vector<ElementHolder> GetOperations(bool good = true);
+
+    ElementHolderInheritance GetInheritance(bool good = true);
 };
 
 

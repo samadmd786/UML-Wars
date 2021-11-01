@@ -4,13 +4,14 @@
  */
 
 #include "pch.h"
-#include "UMLWarsView.h"
-#include "ItemHarold.h"
-#include "ItemBox.h"
-#include "ItemPen.h"
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <memory>
+#include "UMLWarsView.h"
+#include "ItemHarold.h"
+#include "ItemBox.h"
+#include "ItemBoxInheritance.h"
+#include "ItemPen.h"
 
 using namespace std;
 
@@ -111,28 +112,58 @@ void UMLWarsView::OnLeftDown(wxMouseEvent& event)
 void UMLWarsView::OnTimer(wxTimerEvent& event)
 {
     if ((mStopWatch.Time() - mLastBox) > 2000) {
+
         std::uniform_int_distribution<int> badDistribution(0,10);
-        int goodOrBad = badDistribution(mUMLWars.GetRandom());
-        auto Box = make_shared<ItemBox>(&mUMLWars, goodOrBad % 2);
-        Box->SetSpeed(mCurrentSpeed);
-        if (mStopWatch.Time() > 25000) {
-            std::uniform_real_distribution<> distribution(0, 100);
-            double random = distribution(mUMLWars.GetRandom());
-            if (random >= 75)
-            {
-                Box->SetRotationVariant(true);
+        bool goodOrBad = badDistribution(mUMLWars.GetRandom()) % 2 == 1;
+        bool isInherited = badDistribution(mUMLWars.GetRandom()) > 7;
+        if (isInherited){
+            auto Box = make_shared<ItemBoxInheritance>(&mUMLWars, goodOrBad);
+            Box->SetSpeed(mCurrentSpeed);
+
+            // variant stuff
+            if (mStopWatch.Time() > 25000) {
+                std::uniform_real_distribution<> distribution(0, 100);
+                double random = distribution(mUMLWars.GetRandom());
+                if (random >= 75)
+                {
+                    Box->SetRotationVariant(true);
+                }
             }
+            if (mStopWatch.Time() > 10000){
+                auto harold = mUMLWars.GetHarold();
+                if (harold->GetSliding() == 0){
+                    harold->SetSliding(1);
+                }
+                else{
+                    harold->SetSliding(1.04*harold->GetSliding());
+                }
+            }
+            mUMLWars.Add(Box);
         }
-        if (mStopWatch.Time() > 10000){
-            auto harold = mUMLWars.GetHarold();
-            if (harold->GetSliding() == 0){
-                harold->SetSliding(1);
+        else{
+            auto Box = make_shared<ItemBox>(&mUMLWars, goodOrBad);
+            Box->SetSpeed(mCurrentSpeed);
+
+            // variant stuff
+            if (mStopWatch.Time() > 25000) {
+                std::uniform_real_distribution<> distribution(0, 100);
+                double random = distribution(mUMLWars.GetRandom());
+                if (random >= 75)
+                {
+                    Box->SetRotationVariant(true);
+                }
             }
-            else{
-                harold->SetSliding(1.04*harold->GetSliding());
+            if (mStopWatch.Time() > 10000){
+                auto harold = mUMLWars.GetHarold();
+                if (harold->GetSliding() == 0){
+                    harold->SetSliding(1);
+                }
+                else{
+                    harold->SetSliding(1.04*harold->GetSliding());
+                }
             }
+            mUMLWars.Add(Box);
         }
-        mUMLWars.Add(Box);
         mLastBox = mStopWatch.Time();
     }
     if (mStopWatch.Time()%10000<=30) {
