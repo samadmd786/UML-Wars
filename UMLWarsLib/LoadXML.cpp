@@ -148,6 +148,8 @@ std::vector<ElementHolder> LoadXML::GetOperations(bool good) {
 
 /**
  * Get random inheritance
+ * @param good to true
+ * @return ElementHolderInheritance item with good/bad attributes
  */
 ElementHolderInheritance LoadXML::GetInheritance(bool good){
     std::random_device rd;

@@ -2,7 +2,7 @@
  * @file ElementHolderInheritance.h
  * @author Andrew Haas
  *
- *
+ * class to hold Elements (inheritance) in XML file
  */
 
 #ifndef UMLWARS_ELEMENTHOLDERINHERITANCE_H
@@ -10,6 +10,9 @@
 
 #include "ElementHolder.h"
 
+/**
+ * class to hold Elements (inheritance) in XML file
+ */
 class ElementHolderInheritance : public ElementHolder{
 private:
     /// the name of the derived class in the relationship
@@ -31,6 +34,7 @@ public:
 
     /**
      * Getter for the derived class name
+     * @return wxString mDerivedName
      */
     wxString GetDerivedName(){
         return mDerivedName;

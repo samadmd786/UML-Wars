@@ -12,6 +12,9 @@
 #include "ElementHolder.h"
 #include <vector>
 
+/**
+ * Class for inheritance box item
+ */
 class ItemBoxInheritance : public Item{
 private:
 
@@ -87,7 +90,11 @@ public:
     /// Assignment operator (disabled)
     void operator=(const ItemBoxInheritance &) = delete;
 
-    /// Default constructor
+    /**
+     * Default constructor
+     * @param umlWars - umlWars game inheritance box is a part of
+     * @param good - indicates if inheritance box is good
+     */
     ItemBoxInheritance(UMLWars* umlWars, bool good = true);
 
     /// update function

@@ -30,16 +30,28 @@ public:
     /// Assignment operator
     void operator=(const ItemHarold &) = delete;
 
-    /// Setter for Sliding
+    /**
+     * Setter for sliding
+     * @param slide - amount that harold is sliding by
+     */
     void SetSliding(double slide) {mSliding = slide; }
 
-    /// Getter for sliding
+    /**
+     * Getter for sliding
+     * @return mSliding - amount that harold is sliding by
+     */
     double GetSliding() {return mSliding;}
 
-    /// Setter for fast pen
+    /**
+     * Setter for fast pen
+     * @param fast - indicates whether harold is holding a fast pen
+     */
     void SetFastPen(int fast) {mFastPen = fast; }
 
-    /// Getter for fast pen
+    /**
+     * Getter for fast pen
+     * @return indicated whether harold is holding a fast pen
+     */
     int GetFastPen() {return mFastPen; }
 
     /// Default constructor

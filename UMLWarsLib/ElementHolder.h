@@ -2,7 +2,7 @@
  * @file ElementHolder.h
  * @author hemke
  *
- *
+ * class to hold Elements in XML file
  */
 
 #ifndef UMLWARS_ELEMENTHOLDER_H

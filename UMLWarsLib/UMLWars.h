@@ -123,7 +123,8 @@ public:
     std::shared_ptr<ItemPen> GetPen() { return mPen; }
 
     /**
-     * Setter for the pen pointer
+     * Setter for pen pointer
+     * @param pen - pen that is used in the UMLWars game
      */
     void SetPen(std::shared_ptr<ItemPen> pen) {mPen = pen;}
 
@@ -178,10 +179,16 @@ public:
     /// Delete box function
     void DeleteBox();
 
-    /// Setter for rotation speed
+    /**
+     * Setter for rotation speed
+     * @param speed - speed to rotate items by
+     */
     void SetRotationSpeed(double speed) {mRotationSpeed = speed;}
 
-    /// Getter for Rotation Speed
+    /**
+     * Getter for rotation speed
+     * @return speed to rotate items by
+     */
     double GetRotationSpeed() {return mRotationSpeed; }
 
 
