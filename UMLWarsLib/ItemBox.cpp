@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "ItemBox.h"
+#include "ItemPen.h"
 #include <memory>
 #include <random>
 #include "UMLWars.h"
@@ -235,8 +236,8 @@ bool ItemBox::HitTest(int x, int y)
     double testX = x-GetX()+mWidth/2;
     double testY = y-GetY()+mHeight/2;
 
-    // Test to see if x, y are in the image
-    if (testX<0 || testY<0 || testX>=mWidth*2 || testY>=mHeight) {
+    // Test to see if x, y are in the image (and if the pen has been launched)
+    if (testX<0 || testY<0 || testX>=mWidth*2 || testY>=mHeight || !GetUMLWars()->GetPen()->GetLaunch()) {
         // We are outside the image
         return false;
     }

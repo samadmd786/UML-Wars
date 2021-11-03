@@ -53,6 +53,9 @@ private:
     /// Vector of items
     std::vector<std::shared_ptr<Item>> mItems;
 
+    /// Pen Pointer
+    std::shared_ptr<ItemPen> mPen;
+
     /// Item to be removed
     long mItemToRemove = -1;
 
@@ -117,7 +120,12 @@ public:
      * Getter for the pen
      * @return a shared pointer to the pen
      */
-    std::shared_ptr<Item> GetPen() { return mItems[1]; }
+    std::shared_ptr<ItemPen> GetPen() { return mPen; }
+
+    /**
+     * Setter for the pen pointer
+     */
+    void SetPen(std::shared_ptr<ItemPen> pen) {mPen = pen;}
 
     /**
      * Getter for the scoreboard

@@ -186,9 +186,9 @@ void ItemBoxInheritance::Draw(wxGraphicsContext* graphics) {
     graphics->SetBrush(dRectBrush);
     graphics->SetPen(*wxBLACK_PEN);
 
-    graphics->DrawRectangle(-mDWidth/2., -mDHeight/2. - 1.5*mBHeight, mDWidth, mDHeight);
-    graphics->DrawText(mDClassName, (- dClassWidth) / 2., -mDHeight/2. - 1.5*mBHeight);
-    graphics->StrokeLine(-mDWidth/2., -mDHeight/2.+dHit- 1.5*mBHeight, -mDWidth/2.+dWid, -mDHeight/2.+dHit- 1.5*mBHeight);
+    graphics->DrawRectangle(-mDWidth/2., -mDHeight/2. - mBHeight - 20, mDWidth, mDHeight);
+    graphics->DrawText(mDClassName, (- dClassWidth) / 2., -mDHeight/2. - mBHeight - 20);
+    graphics->StrokeLine(-mDWidth/2., -mDHeight/2.+dHit- mBHeight - 20, -mDWidth/2.+dWid, -mDHeight/2.+dHit - mBHeight - 20);
 
 
     graphics->SetFont(font, wxColour(0, 0, 0));
@@ -196,14 +196,14 @@ void ItemBoxInheritance::Draw(wxGraphicsContext* graphics) {
     j = 0;
 
     for (auto attribute: mDerivedAttributes) {
-        graphics->DrawText(attribute.GetName(), -mDWidth/2., -mDHeight/2.+bHit*i -  1.5*mBHeight);
+        graphics->DrawText(attribute.GetName(), -mDWidth/2., -mDHeight/2.+bHit*i - mBHeight - 20);
         i++;
     }
 
     if (!mDerivedOperations.empty()) {
-        graphics->StrokeLine(-mDWidth/2., -mDHeight/2.+dHit*i - 1.5*mBHeight, -mDWidth/2.+dWid, -mDHeight/2.+bHit*i -  1.5*mBHeight);
+        graphics->StrokeLine(-mDWidth/2., -mDHeight/2.+dHit*i - mBHeight - 20, -mDWidth/2.+dWid, -mDHeight/2.+bHit*i - mBHeight - 20);
         for (auto operation: mDerivedOperations) {
-            graphics->DrawText(operation.GetName(), -mDWidth/2., -mDHeight/2.+dHit*i+dHit*j - 1.5*mBHeight);
+            graphics->DrawText(operation.GetName(), -mDWidth/2., -mDHeight/2.+dHit*i+dHit*j - mBHeight - 20);
             j++;
         }
     }
@@ -223,7 +223,7 @@ void ItemBoxInheritance::Draw(wxGraphicsContext* graphics) {
         } else {
             graphics->SetFont(errorFont, wxColour(192, 0, 0));
         }
-        graphics->DrawText(mMsgString, (-mBWidth/2. + (mBWidth / 2)) - (msgWidth), -mBHeight/2. + (mBHeight - msgHeight) / 2. - mBHeight);
+        graphics->DrawText(mMsgString, (-mBWidth/2. + (mBWidth / 2)) - (msgWidth), -mBHeight/2. + (mBHeight - msgHeight) / 2. - mBHeight - 20);
     }
 
     graphics->PopState();   // Restore the graphics state
@@ -295,12 +295,13 @@ bool ItemBoxInheritance::HitTest(int x, int y)
     double bTestX = x-GetX()+mBWidth/2;
     double bTestY = y-GetY()+mBHeight/2;
 
-    // Test to see if x, y are in the image
-    if (bTestX<0 || bTestY<0 || bTestX>=mBWidth*2 || bTestY>=mBHeight) {
+    // Test to see if x, y are in the image (and if the pen has been launched)
+    if (bTestX<0 || bTestY<0 || bTestX>=mBWidth*2 || bTestY>=mBHeight || !GetUMLWars()->GetPen()->GetLaunch()) {
         // We are outside the image
         return false;
     }
 
     // now perform the same test for the derived rectangle
     // someone take a look at this
+    return true;
 }

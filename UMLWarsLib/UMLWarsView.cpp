@@ -37,6 +37,7 @@ UMLWarsView::UMLWarsView()
     Pen->SetX(29);
     Pen->SetY(846);
     mUMLWars.Add(Pen);
+    mUMLWars.SetPen(Pen);
 
     auto Board = make_shared<ScoreBoard>(&mUMLWars);
     mUMLWars.Add(Board);
